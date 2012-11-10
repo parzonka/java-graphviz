@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,6 +16,7 @@ import java.util.logging.Logger;
  * Graphviz engine to generate of graph output
  * 
  * @author Everton Cardoso
+ * @author Mateusz Parzonka
  * 
  */
 public class GraphvizEngine {
@@ -24,6 +26,7 @@ public class GraphvizEngine {
     private Map<String, OutputType> type;
     private Graph graph;
     private String layoutManager;
+    private File graphVizInstallationLocation;
 
     /**
      * directory path where the dot command will be executed.
@@ -80,9 +83,31 @@ public class GraphvizEngine {
 
     }
 
+    /**
+     * Searches the paths for executables in the order as they are provided via:
+     * <ol>
+     * <li>java API</li>
+     * <li>command-line</li>
+     * <li>value of the PATH variable</li>
+     * </ol>
+     * @param prog name of the executable
+     * @return
+     */
     private String findExecutable(String prog) {
+	List<String> paths = Arrays.asList(System.getenv().get("PATH").split(File.pathSeparator));
+	final String graphvizInstallationLocationViaProperty = System.getProperty("graphviz.installation.location");
+	if (graphvizInstallationLocationViaProperty != null) {
+	    final File location = new File(graphvizInstallationLocationViaProperty);
+	    if (!location.exists() || !location.isDirectory()) {
+		throw new GraphvizEngineException("GraphViz installation location"
+			+ graphvizInstallationLocationViaProperty + " does not exist or is not a directory.");
+	    }
+	    paths.add(0, graphvizInstallationLocationViaProperty);
+	}
+	if (graphVizInstallationLocation != null) {
+	    paths.add(0, graphVizInstallationLocation.getAbsolutePath());
+	}
 
-	String[] paths = System.getenv().get("PATH").split(File.pathSeparator);
 	for (String path : paths) {
 	    String file = (path == null) ? prog : (path + File.separator + prog);
 	    if (new File(file).canExecute() && !new File(file).isDirectory()) {
@@ -176,6 +201,22 @@ public class GraphvizEngine {
 
 	this.type.values().iterator().next().toFilePath(filePath);
 
+	return this;
+    }
+
+    /**
+     * Set the path to the location containing your GraphViz binaries (dot, neato, ...) which may be
+     * /usr/local/graphviz-x.x, /usr/local/bin or similar.
+     * 
+     * @param filePath
+     */
+    public GraphvizEngine setGraphVizInstallationLocation(String filePath) {
+
+	this.graphVizInstallationLocation = new File(filePath);
+	if (!graphVizInstallationLocation.exists() || !graphVizInstallationLocation.isDirectory()) {
+	    throw new GraphvizEngineException("GraphViz installation location" + graphVizInstallationLocation
+		    + " does not exist or is not a directory.");
+	}
 	return this;
     }
 
