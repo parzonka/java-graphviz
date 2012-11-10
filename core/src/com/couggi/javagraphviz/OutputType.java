@@ -8,7 +8,7 @@ package com.couggi.javagraphviz;
  */
 public class OutputType {
 
-	private String name;
+	private final String name;
 	private String filePath;
 	
 	OutputType(String name) { 
@@ -28,8 +28,4 @@ public class OutputType {
 		return this.filePath;
 	}
 
-	public void name(String name) {
-		this.name = name;
-	}
-	
 }
