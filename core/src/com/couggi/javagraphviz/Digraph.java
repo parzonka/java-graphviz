@@ -41,6 +41,8 @@ public class Digraph implements Graph {
 
     private List<SubGraph> subGraphs;
 
+    private boolean prefIdEqualsLabel;
+
     /**
      * create a Digraph with name.
      */
@@ -104,6 +106,9 @@ public class Digraph implements Graph {
 	if (node == null) {
 	    node = new Node(id, this);
 	    nodes.put(id, node);
+	}
+	if (prefIdEqualsLabel) {
+	    node.attr("label").value(id);
 	}
 	return node;
     }
@@ -246,6 +251,26 @@ public class Digraph implements Graph {
 
     public void addSubGraph(SubGraph graph) {
 	this.subGraphs.add(graph);
+    }
+
+    /**
+     * If set to <code>true</code>, the graphviz label of a node is set identical to the node id. Otherwise, the label
+     * is set to the empty string, and can be set via attributes.
+     * 
+     * @param deriveNodeLabelFromId
+     */
+    public boolean isIdEqualsLabel() {
+	return prefIdEqualsLabel;
+    }
+
+    /**
+     * If set to <code>true</code>, the graphviz label of a node is set identical to the node id. Otherwise, the label
+     * is set to the empty string, and can be set via attributes.
+     * 
+     * @param idEqualsLabel
+     */
+    public void setIdEqualsLabel(boolean idEqualsLabel) {
+	this.prefIdEqualsLabel = idEqualsLabel;
     }
 
 }
