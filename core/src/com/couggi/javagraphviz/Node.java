@@ -1,5 +1,9 @@
 package com.couggi.javagraphviz;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Map.Entry;
+
 
 /**
  * the Node Component of graphviz tools.
@@ -11,7 +15,7 @@ public class Node implements Component {
 
 	private Graph graph;
 	private String name;
-	private Attrs attrs;
+	private Map<String, String> attrs;
 	
 	
 	/**
@@ -19,7 +23,7 @@ public class Node implements Component {
 	 */
 	private Node(String name) { 
 		this.name = name;
-		this.attrs = new Attrs(this);
+		this.attrs = new HashMap<String, String>();
 	}
 	
 	/**
@@ -32,14 +36,14 @@ public class Node implements Component {
 	public Node(String label, String id, Graph graph) {
 		this(id);
 		this.graph = graph;
-		this.attr("label").value(label);
+		this.attrs.put("label", label);
 	}
 	
 	/* 
 	 * @see net.javagraphviz.Component#attribute(java.lang.String)
 	 */
 	@Override
-	public Attr attr(String name) {
+	public String attr(String name) {
 		return this.attrs.get(name);
 	}
 
@@ -47,9 +51,14 @@ public class Node implements Component {
 	 * @see net.javagraphviz.Component#attributes()
 	 */
 	@Override
-	public Attrs attrs() {
+	public Map<String, String> getAttributes() {
 		return this.attrs;
 	}
+	
+	 @Override
+	    public void setAttribute(String attribute, String value) {
+		this.attrs.put(attribute, value);
+	    }
 	
 	/* 
 	 * @see net.javagraphviz.Component#name()
@@ -90,11 +99,11 @@ public class Node implements Component {
 	    StringBuffer xAttr = new StringBuffer("");
 	    String xSeparator = "";
 	    
-	    for (Attr attrs : this.attrs.list()) {   
-		      if  ("html".equals(attrs.name())) {
-			      xAttr.append(xSeparator + "label = " + attrs.value().toGv());
+	    for (Entry<String, String> attrs : this.attrs.entrySet()) {   
+		      if  ("html".equals(attrs.getKey())) {
+			      xAttr.append(xSeparator + "label = " + attrs.getValue());
 		      }else {
-	          xAttr.append(xSeparator + attrs.name() + " = " + attrs.value().toGv());
+	          xAttr.append(xSeparator + attrs.getKey() + " = " + attrs.getValue());
 		      }
 	        xSeparator = ", ";
 	    }

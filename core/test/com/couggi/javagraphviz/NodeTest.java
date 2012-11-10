@@ -20,8 +20,8 @@ public class NodeTest {
 	@Test
 	public void testOutput() {
 		
-		node.attr("shape").value("doublecircle");
-		node.attr("color").value("#000");
+		node.setAttribute("shape", "doublecircle");
+		node.setAttribute("color", "#000");
 		
 		StringBuffer xAttr = new StringBuffer("");
 		xAttr.append("color" + " = " + "\"#000\"");

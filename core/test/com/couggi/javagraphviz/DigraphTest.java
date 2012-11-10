@@ -17,14 +17,6 @@ public class DigraphTest {
 	}
 	
 	@Test
-	public void getAttribute() { 
-		
-		Attr attr =  digraph.attr("rankdir");
-		Assert.assertEquals("rankdir",attr.name());
-		Assert.assertEquals(null,attr.value());
-	}
-	
-	@Test
 	public void addNode() { 
 		Node node = digraph.addNode("nodeA");
 		Assert.assertEquals(new Node("nodeA", digraph), node);
@@ -77,15 +69,15 @@ public class DigraphTest {
 	@Test
 	public void testOutput() { 
 	
-		digraph.attr("bgcolor").value("#000");
-		digraph.getDefaultNode().attr("shape").value("doublecircle");
-		digraph.getDefaultEdge().attr("shape").value("folder");
+		digraph.setAttribute("bgcolor", "#000");
+		digraph.getDefaultNode().setAttribute("shape", "doublecircle");
+		digraph.getDefaultEdge().setAttribute("shape", "folder");
 		Node nodeA = digraph.addNode("nodeA");
-		nodeA.attr("fillcolor").value("#fff");
+		nodeA.setAttribute("fillcolor", "#fff");
 		Node nodeB = digraph.addNode("nodeB");
-		nodeB.attr("shape").value("circle");
+		nodeB.setAttribute("shape", "circle");
 		Edge edge = digraph.addEdge(nodeA, nodeB);
-		edge.attr("label").value("change_label");
+		edge.setAttribute("label", "change_label");
 		SubGraph subGraph = new SubGraph("hello_world");
 		Node hello = subGraph.addNode("hello");
 		Node world = subGraph.addNode("world");
@@ -113,7 +105,7 @@ public class DigraphTest {
 	@Test
 	public void testAddSubGraph() { 
 		SubGraph subGraph = new SubGraph("G");
-		subGraph.attr("label").value("hello_world");
+		subGraph.setAttribute("label", "hello_world");
 		Node hello = subGraph.addNode("hello");
 		Node world = subGraph.addNode("world");
 		subGraph.addEdge(hello, world);
@@ -126,7 +118,7 @@ public class DigraphTest {
 	@Test
 	public void testAddTwoSubGraphAndDefineExternalNodesRelationship() { 
 		SubGraph subGraphOne = new SubGraph("G");
-		subGraphOne.attr("label").value("hello_world");
+		subGraphOne.setAttribute("label", "hello_world");
 		Node hello = subGraphOne.addNode("hello");
 		Node world = subGraphOne.addNode("world");
 		subGraphOne.addEdge(hello, world);
@@ -146,7 +138,7 @@ public class DigraphTest {
 	@Test(expected=IllegalArgumentException.class)
 	public void testValidateIfExistsNodesWhenDefineExternalNodesRelationship() { 
 		SubGraph subGraphOne = new SubGraph("G");
-		subGraphOne.attr("label").value("hello_world");
+		subGraphOne.setAttribute("label", "hello_world");
 		Node hello = subGraphOne.addNode("hello");
 		Node world = subGraphOne.addNode("world");
 		subGraphOne.addEdge(hello, world);

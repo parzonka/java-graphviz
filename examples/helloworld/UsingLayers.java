@@ -1,8 +1,6 @@
 package helloworld;
 
 import com.couggi.javagraphviz.Digraph;
-import com.couggi.javagraphviz.Edge;
-import com.couggi.javagraphviz.Graph;
 import com.couggi.javagraphviz.GraphvizEngine;
 import com.couggi.javagraphviz.Node;
 import com.couggi.javagraphviz.SubGraph;
@@ -12,9 +10,9 @@ public class UsingLayers {
 public static void main(String[] args) {
 
 		SubGraph names = new SubGraph("names");
-		names.attr("label").value("#names");
+		names.setAttribute("label", "#names");
 		SubGraph animals = new SubGraph("animals");
-		animals.attr("label").value("#animals");
+		animals.setAttribute("label", "#animals");
 
 		// define a graph with the Digraph Type.
 		Digraph graph = new Digraph("G");

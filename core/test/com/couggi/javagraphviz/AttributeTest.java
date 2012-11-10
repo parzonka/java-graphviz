@@ -30,23 +30,16 @@ public class AttributeTest {
 
 	@Test
 	public void testSetValue() {
-		component.attr("rankdir").value("#999");
-		assertEquals("#999", component.attr("rankdir").value().toString());
+		component.setAttribute("rankdir", "#999");
+		assertEquals("#999", component.attr("rankdir"));
 		
 	}
 	
 	@Test
 	public void testSetValueWithNullRemovedAttribute() {
-		component.attr("rankdir").value("#999");
-		component.attr("rankdir").value(null);
-		assertEquals(0, component.attrs().total());
+	    	component.setAttribute("rankdir", "#999");
+	    	component.setAttribute("rankdir", null);
+		assertEquals(0, component.getAttributes().size());
 	}
 	
-	@Test
-	public void testRemoveTheAttribute() { 
-		component.attr("rankdir").value("#000");
-		component.attr("rankdir").remove();
-		assertEquals(0, component.attrs().total()); 
-	}
-
 }

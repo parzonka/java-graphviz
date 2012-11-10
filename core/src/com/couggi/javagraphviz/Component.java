@@ -1,5 +1,7 @@
 package com.couggi.javagraphviz;
 
+import java.util.Map;
+
 /**
  * the graph components (node, edges, etc)
  * 
@@ -12,9 +14,11 @@ public interface Component {
 	 * return the attribute of the component.
 	 * 
 	 */
-	Attr attr(String name);
+	String attr(String name);
 
-	Attrs attrs();
+	Map<String, String> getAttributes();
+	
+	void setAttribute(String attribute, String value);
 	
 	/**
 	 * name of the componenet.

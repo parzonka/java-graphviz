@@ -1,12 +1,15 @@
 package com.couggi.javagraphviz;
 
+import java.util.Map;
+import java.util.Map.Entry;
+
 public class Edge implements Component {
 
     private final Graph graph;
     private final Node startNode;
     private final Node endNode;
     private final String name;
-    private Attrs attrs;
+    private Map<String, String> attrs;
 
     /**
      * Creates an edge between two nodes in the given graph.
@@ -56,7 +59,7 @@ public class Edge implements Component {
      * @see net.javagraphviz.Component#attribute(java.lang.String)
      */
     @Override
-    public Attr attr(String name) {
+    public String attr(String name) {
 	return this.attrs.get(name);
     }
 
@@ -64,8 +67,13 @@ public class Edge implements Component {
      * @see net.javagraphviz.Component#attributes()
      */
     @Override
-    public Attrs attrs() {
+    public Map<String, String> getAttributes() {
 	return this.attrs;
+    }
+    
+    @Override
+    public void setAttribute(String attribute, String value) {
+	this.attrs.put(attribute, value);
     }
 
     @Override
@@ -105,8 +113,8 @@ public class Edge implements Component {
 	StringBuffer xAttr = new StringBuffer("");
 	String xSeparator = "";
 
-	for (Attr attrs : this.attrs.list()) {
-	    xAttr.append(xSeparator + attrs.name() + " = " + attrs.value().toGv());
+	for (Entry<String, String> attribute: this.attrs.entrySet()) {
+	    xAttr.append(xSeparator + attribute.getKey() + " = " + attribute.getValue());
 	    xSeparator = ", ";
 	}
 	if (xAttr.length() > 0) {
