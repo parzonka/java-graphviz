@@ -2,38 +2,38 @@ package com.couggi.javagraphviz;
 
 public class Edge implements Component {
 
-    Graph graph;
-    private Node nodeFrom;
-    private Node nodeTo;
-    private String name;
+    private final Graph graph;
+    private final Node startNode;
+    private final Node endNode;
+    private final String name;
     private Attrs attrs;
 
     /**
      * Creates an edge between two nodes in the given graph.
      * 
-     * @param nodeFrom
-     * @param nodeTo
+     * @param startNode
+     * @param endNode
      * @param graph
      */
-    public Edge(Node nodeFrom, Node nodeTo, Graph graph) {
-	this.name = nodeFrom.name() + " -> " + nodeTo.name();
+    public Edge(Node startNode, Node endNode, Graph graph) {
+	this.name = startNode.name() + " -> " + endNode.name();
 	this.graph = graph;
-	this.nodeFrom = nodeFrom;
-	this.nodeTo = nodeTo;
+	this.startNode = startNode;
+	this.endNode = endNode;
     }
 
     /**
      * node from
      */
     public Node from() {
-	return nodeFrom;
+	return startNode;
     }
 
     /**
      * node to
      */
     public Node to() {
-	return nodeTo;
+	return endNode;
     }
 
     /*
@@ -89,8 +89,8 @@ public class Edge implements Component {
 
 	String xLink = " -> ";
 
-	String xNodeNameOne = this.nodeFrom.name();
-	String xNodeNameTwo = this.nodeTo.name();
+	String xNodeNameOne = this.startNode.name();
+	String xNodeNameTwo = this.endNode.name();
 
 	StringBuffer xOut = new StringBuffer(xNodeNameOne + xLink + xNodeNameTwo);
 	StringBuffer xAttr = new StringBuffer("");
@@ -107,6 +107,10 @@ public class Edge implements Component {
 
 	return (xOut.toString());
 
+    }
+
+    public Graph getGraph() {
+	return graph;
     }
 
 }
