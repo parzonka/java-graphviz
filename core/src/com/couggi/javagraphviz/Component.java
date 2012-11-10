@@ -1,35 +1,34 @@
 package com.couggi.javagraphviz;
 
+import java.util.HashMap;
 import java.util.Map;
 
-/**
- * the graph components (node, edges, etc)
- * 
- * @author Everton Cardoso
- *
- */
-public interface Component {
+public abstract class Component {
 
-	/**
-	 * return the attribute of the component.
-	 * 
-	 */
-	String attr(String name);
+    private String id;
+    private Map<String, String> attributes;
 
-	Map<String, String> getAttributes();
-	
-	void setAttribute(String attribute, String value);
-	
-	/**
-	 * name of the componenet.
-	 */
-	String name();
-	
-	
-	/**
-	 * output the component structure 
-	 */
-	String output();
-	
-	
+    public Component(String id) {
+	this.id = id;
+	this.attributes = new HashMap<String, String>();
+    }
+
+    public String getAttributeValue(String name) {
+	return this.attributes.get(name);
+    }
+
+    public Map<String, String> getAttributes() {
+	return this.attributes;
+    }
+
+    public void setAttribute(String attribute, String value) {
+	this.attributes.put(attribute, value);
+    }
+
+    public String name() {
+	return id;
+    }
+
+    public abstract String output();
+
 }

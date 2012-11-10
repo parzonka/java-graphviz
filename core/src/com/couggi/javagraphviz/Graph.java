@@ -9,7 +9,7 @@ import java.util.List;
  * @author Mateusz Parzonka
  * 
  */
-public interface Graph extends Component {
+public interface Graph {
 
     /**
      * Returns a node which serves as a prototype for all created nodes. All attributes to the default node apply to all
@@ -46,6 +46,8 @@ public interface Graph extends Component {
      * create a node with name to graph.
      */
     Node addNode(String name);
+    
+    String output();
 
     /**
      * create a edge with two nodes.

@@ -31,7 +31,7 @@ public class AttributeTest {
 	@Test
 	public void testSetValue() {
 		component.setAttribute("rankdir", "#999");
-		assertEquals("#999", component.attr("rankdir"));
+		assertEquals("#999", component.getAttributeValue("rankdir"));
 		
 	}
 	

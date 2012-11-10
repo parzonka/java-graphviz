@@ -1,15 +1,12 @@
 package com.couggi.javagraphviz;
 
-import java.util.Map;
 import java.util.Map.Entry;
 
-public class Edge implements Component {
+public class Edge extends Component {
 
     private final Graph graph;
     private final Node startNode;
     private final Node endNode;
-    private final String name;
-    private Map<String, String> attrs;
 
     /**
      * Creates an edge between two nodes in the given graph.
@@ -19,7 +16,7 @@ public class Edge implements Component {
      * @param graph
      */
     public Edge(Node startNode, Node endNode, Graph graph) {
-	this.name = startNode.name() + " -> " + endNode.name();
+	super(startNode.name() + " -> " + endNode.name());
 	this.graph = graph;
 	this.startNode = startNode;
 	this.endNode = endNode;
@@ -48,59 +45,6 @@ public class Edge implements Component {
 	return endNode;
     }
 
-    /*
-     * @see net.javagraphviz.Component#name()
-     */
-    public String name() {
-	return this.name;
-    }
-
-    /*
-     * @see net.javagraphviz.Component#attribute(java.lang.String)
-     */
-    @Override
-    public String attr(String name) {
-	return this.attrs.get(name);
-    }
-
-    /*
-     * @see net.javagraphviz.Component#attributes()
-     */
-    @Override
-    public Map<String, String> getAttributes() {
-	return this.attrs;
-    }
-    
-    @Override
-    public void setAttribute(String attribute, String value) {
-	this.attrs.put(attribute, value);
-    }
-
-    @Override
-    public int hashCode() {
-	final int prime = 31;
-	int result = 1;
-	result = prime * result + ((name == null) ? 0 : name.hashCode());
-	return result;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-	if (this == obj)
-	    return true;
-	if (obj == null)
-	    return false;
-	if (getClass() != obj.getClass())
-	    return false;
-	Edge other = (Edge) obj;
-	if (name == null) {
-	    if (other.name != null)
-		return false;
-	} else if (!name.equals(other.name))
-	    return false;
-	return true;
-    }
-
     @Override
     public String output() {
 
@@ -113,7 +57,7 @@ public class Edge implements Component {
 	StringBuffer xAttr = new StringBuffer("");
 	String xSeparator = "";
 
-	for (Entry<String, String> attribute: this.attrs.entrySet()) {
+	for (Entry<String, String> attribute : getAttributes().entrySet()) {
 	    xAttr.append(xSeparator + attribute.getKey() + " = " + attribute.getValue());
 	    xSeparator = ", ";
 	}
@@ -124,6 +68,43 @@ public class Edge implements Component {
 
 	return (xOut.toString());
 
+    }
+
+    @Override
+    public int hashCode() {
+	final int prime = 31;
+	int result = 1;
+	result = prime * result + ((endNode == null) ? 0 : endNode.hashCode());
+	result = prime * result + ((graph == null) ? 0 : graph.hashCode());
+	result = prime * result + ((startNode == null) ? 0 : startNode.hashCode());
+	return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+	if (this == obj)
+	    return true;
+	if (obj == null)
+	    return false;
+	if (getClass() != obj.getClass())
+	    return false;
+	Edge other = (Edge) obj;
+	if (endNode == null) {
+	    if (other.endNode != null)
+		return false;
+	} else if (!endNode.equals(other.endNode))
+	    return false;
+	if (graph == null) {
+	    if (other.graph != null)
+		return false;
+	} else if (!graph.equals(other.graph))
+	    return false;
+	if (startNode == null) {
+	    if (other.startNode != null)
+		return false;
+	} else if (!startNode.equals(other.startNode))
+	    return false;
+	return true;
     }
 
     public Graph getGraph() {

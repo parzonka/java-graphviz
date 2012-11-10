@@ -12,11 +12,7 @@ import java.util.Map.Entry;
  * @author Everton Cardoso
  * 
  */
-public class Digraph implements Graph {
-
-    private String name;
-
-    private Map<String, String> attrs;
+public class Digraph extends Component implements Graph {
 
     private int idCount;
 
@@ -48,40 +44,12 @@ public class Digraph implements Graph {
      * create a Digraph with name.
      */
     public Digraph(String name) {
-	this.name = name;
-	this.attrs = new HashMap<String, String>();
+	super(name);
 	this.defaultNode = new Node("___defaultNode___", this);
 	this.edgeDefault = new Edge(defaultNode, defaultNode, this);
 	this.nodes = new HashMap<String, Node>();
 	this.edges = new ArrayList<Edge>();
 	this.subGraphs = new ArrayList<SubGraph>();
-    }
-
-    /*
-     * @see net.javagraphviz.Component#attribute(java.lang.String)
-     */
-    public String attr(String key) {
-	return this.attrs.get(key);
-    }
-
-    /*
-     * @see net.javagraphviz.Component#attributes()
-     */
-    @Override
-    public Map<String, String> getAttributes() {
-	return this.attrs;
-    }
-    
-    @Override
-    public void setAttribute(String attribute, String value) {
-	this.attrs.put(attribute, value);
-    }
-
-    /**
-     * return the digraph name.
-     */
-    public String name() {
-	return this.name;
     }
 
     /*
@@ -188,8 +156,8 @@ public class Digraph implements Graph {
 	StringBuffer xData = new StringBuffer("");
 
 	// mount the graph attributes
-	if (!this.attrs.isEmpty()) {
-	    for (Entry<String, String> attr : this.attrs.entrySet()) {
+	if (!getAttributes().isEmpty()) {
+	    for (Entry<String, String> attr : getAttributes().entrySet()) {
 		xData.append(xSeparator + attr.getKey() + " = " + attr.getValue());
 		xSeparator = ", ";
 	    }
