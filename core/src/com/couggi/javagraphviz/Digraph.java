@@ -50,7 +50,7 @@ public class Digraph implements Graph {
 	this.name = name;
 	this.attrs = new Attrs(this);
 	this.defaultNode = new Node("___defaultNode___", this);
-	this.edgeDefault = new Edge(null, null, this);
+	this.edgeDefault = new Edge(defaultNode, defaultNode, this);
 	this.nodes = new HashMap<String, Node>();
 	this.edges = new ArrayList<Edge>();
 	this.subGraphs = new ArrayList<SubGraph>();
