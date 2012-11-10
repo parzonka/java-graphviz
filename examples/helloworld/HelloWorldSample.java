@@ -10,12 +10,12 @@ import com.couggi.javagraphviz.Node;
 public class HelloWorldSample {
 
 	public static void main(String[] args) {
-		
+
 		// define a graph with the Digraph Type.
 		Graph graph = new Digraph("G");
 		graph.attr("rankdir").value("LR");
 		graph.node().attr("shape").value("record");
-		// create nodes with names 
+		// create nodes with names
 		Node hello = graph.addNode("Hello");
 		hello.attr("fixedsize").value("true");
 		hello.attr("width").value("0.8");
@@ -31,12 +31,10 @@ public class HelloWorldSample {
 		// create a edge with hello node and world node.
 		// create the Graphviz engine to the graph
 		GraphvizEngine engine = new GraphvizEngine(graph);
-		// define the type of the output 
-		engine.type("png");
 		// define the file name of the output.
 		engine.toFilePath("helloworld.png");
 		// generate output.
 		engine.output();
-		
+
 	}
 }
