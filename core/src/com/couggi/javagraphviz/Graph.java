@@ -3,15 +3,19 @@ package com.couggi.javagraphviz;
 import java.util.List;
 
 /**
- * type Graph component of the graphviz tools.
+ * Represents a GraphViz graph.
  * 
  * @author Everton Cardoso
+ * @author Mateusz Parzonka
  * 
  */
 public interface Graph extends Component {
 
     /**
-     * attributes default of the nodes.
+     * Returns a node which serves as a prototype for all created nodes. All attributes to the default node apply to all
+     * nodes of this graph, if they are not overwritten.
+     * 
+     * @return
      */
     Node getDefaultNode();
 
