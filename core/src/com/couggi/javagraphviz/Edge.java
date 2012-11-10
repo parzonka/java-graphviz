@@ -22,17 +22,11 @@ public class Edge implements Component {
 	this.endNode = endNode;
     }
 
-    /**
-     * node from
-     */
-    public Node from() {
+    public Node getStartNode() {
 	return startNode;
     }
 
-    /**
-     * node to
-     */
-    public Node to() {
+    public Node getEndNode() {
 	return endNode;
     }
 

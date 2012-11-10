@@ -138,8 +138,8 @@ public class DigraphTest {
 		
 		Edge edge = digraph.addEdge(hello, dog);
 		
-		Assert.assertEquals(subGraphOne,edge.from().graph());
-		Assert.assertEquals(subGraphTwo,edge.to().graph());
+		Assert.assertEquals(subGraphOne,edge.getStartNode().graph());
+		Assert.assertEquals(subGraphTwo,edge.getEndNode().graph());
 		
 	}
 	
