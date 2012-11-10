@@ -9,18 +9,14 @@ public class Edge implements Component {
     private Attrs attrs;
 
     /**
-     * edge default.
-     */
-    private Edge(String name) {
-	this.name = name;
-	this.attrs = new Attrs(this);
-    }
-
-    /**
-     * create edge with two nodes.
+     * Creates an edge between two nodes in the given graph.
+     * 
+     * @param nodeFrom
+     * @param nodeTo
+     * @param graph
      */
     public Edge(Node nodeFrom, Node nodeTo, Graph graph) {
-	this(nodeFrom.name() + "_" + nodeTo.name());
+	this.name = nodeFrom.name() + " -> " + nodeTo.name();
 	this.graph = graph;
 	this.nodeFrom = nodeFrom;
 	this.nodeTo = nodeTo;
