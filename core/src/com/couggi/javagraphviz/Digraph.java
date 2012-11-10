@@ -93,6 +93,34 @@ public class Digraph implements Graph {
 	return node;
     }
 
+    /**
+     * Retrieves a node with given id, or creates a node if the id is not known to this graph.
+     * 
+     * @param id
+     * @return a node
+     */
+    public Node getNode(String id) {
+	Node node = nodes.get(id);
+	if (node == null) {
+	    node = new Node(id, this);
+	    nodes.put(id, node);
+	}
+	return node;
+    }
+
+    /**
+     * Creates a node with auto generated id.
+     * 
+     * @return a node
+     */
+    public Node getNode() {
+	String id;
+	do {
+	    id = "node" + idCount++;
+	} while (nodes.containsKey(id));
+	return getNode(id);
+    }
+
     /*
      * @see net.javagraphviz.Graph#addEdge(net.javagraphviz.Node, net.javagraphviz.Node)
      */
