@@ -20,9 +20,12 @@ public interface Graph extends Component {
     Node getDefaultNode();
 
     /**
-     * attributes default of the edges.
+     * Returns an edge which serves as a prototype for all created edges. All attributes to the default edge apply to all
+     * edges of this graph, if they are not overwritten.
+     * 
+     * @return
      */
-    Edge edge();
+    Edge getDefaultEdge();
 
     /**
      * list of the nodes.

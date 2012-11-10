@@ -157,7 +157,7 @@ public class Digraph implements Graph {
     /*
      * @see net.javagraphviz.Graph#edge()
      */
-    public Edge edge() {
+    public Edge getDefaultEdge() {
 	return this.edgeDefault;
     }
 
@@ -214,8 +214,8 @@ public class Digraph implements Graph {
 	xData = new StringBuffer("");
 
 	// mount the edge attributes
-	if (!this.edge().attrs().list().isEmpty()) {
-	    for (Attr attr : this.edge().attrs().list()) {
+	if (!this.getDefaultEdge().attrs().list().isEmpty()) {
+	    for (Attr attr : this.getDefaultEdge().attrs().list()) {
 		xData.append(xSeparator + attr.name() + " = " + attr.value().toGv());
 		xSeparator = ", ";
 	    }
