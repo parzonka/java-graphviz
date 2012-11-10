@@ -32,7 +32,7 @@ public class GraphvizEngine {
 	private String directoryPathExecute = ".";
 	
 	/**
-	 * create the engine. type defualt = xdot.
+	 * create the engine. type default = png.
 	 */
 	public GraphvizEngine(Graph graph) {
 		this.graph = graph;
