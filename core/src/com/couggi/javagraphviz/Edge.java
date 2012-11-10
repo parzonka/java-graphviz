@@ -64,13 +64,6 @@ public class Edge implements Component {
 		return this.attrs;
 	}
 	
-	/**
-	 * create the edge default
-	 */
-	static Edge getDefault(String name) { 
-		return new Edge(name);
-	}
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;

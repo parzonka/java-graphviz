@@ -49,8 +49,8 @@ public class Digraph implements Graph {
     public Digraph(String name) {
 	this.name = name;
 	this.attrs = new Attrs(this);
-	this.defaultNode = Node.getDefault(name);
-	this.edgeDefault = Edge.getDefault(name);
+	this.defaultNode = new Node("___defaultNode___", this);
+	this.edgeDefault = new Edge(null, null, this);
 	this.nodes = new HashMap<String, Node>();
 	this.edges = new ArrayList<Edge>();
 	this.subGraphs = new ArrayList<SubGraph>();

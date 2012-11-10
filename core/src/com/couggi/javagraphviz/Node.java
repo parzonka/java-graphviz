@@ -106,14 +106,6 @@ public class Node implements Component {
 	      return(xOut.toString());
 		
 	}
-
-	
-	/**
-	 * create the node default
-	 */
-	static Node getDefault(String name) {
-		return new Node(name);
-	}
 	
 	public Graph graph() { 
 		return graph;
