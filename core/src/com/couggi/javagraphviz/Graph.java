@@ -13,7 +13,7 @@ public interface Graph extends Component {
 	/**
 	 * attributes default of the nodes.
 	 */
-	Node node();
+	Node getDefaultNode();
 	
 	/**
 	 * attributes default of the edges.

@@ -14,7 +14,7 @@ public class HelloWorldSample {
 		// define a graph with the Digraph Type.
 		Graph graph = new Digraph("G");
 		graph.attr("rankdir").value("LR");
-		graph.node().attr("shape").value("record");
+		graph.getDefaultNode().attr("shape").value("record");
 		// create nodes with names
 		Node hello = graph.addNode("Hello");
 		hello.attr("fixedsize").value("true");

@@ -22,7 +22,7 @@ public class Digraph implements Graph {
     /**
      * representation of general node attributes
      */
-    private Node nodeDefault;
+    private Node defaultNode;
 
     /**
      * representation of general node attributes
@@ -49,7 +49,7 @@ public class Digraph implements Graph {
     public Digraph(String name) {
 	this.name = name;
 	this.attrs = new Attrs(this);
-	this.nodeDefault = Node.getDefault(name);
+	this.defaultNode = Node.getDefault(name);
 	this.edgeDefault = Edge.getDefault(name);
 	this.nodes = new HashMap<String, Node>();
 	this.edges = new ArrayList<Edge>();
@@ -79,10 +79,10 @@ public class Digraph implements Graph {
     }
 
     /*
-     * @see net.javagraphviz.Graph#node()
+     * @see net.javagraphviz.Graph#getDefaultNode()
      */
-    public Node node() {
-	return this.nodeDefault;
+    public Node getDefaultNode() {
+	return this.defaultNode;
     }
 
     /*
@@ -201,8 +201,8 @@ public class Digraph implements Graph {
 	xData = new StringBuffer("");
 
 	// mount the node attributes
-	if (!this.node().attrs().list().isEmpty()) {
-	    for (Attr attr : this.node().attrs().list()) {
+	if (!this.getDefaultNode().attrs().list().isEmpty()) {
+	    for (Attr attr : this.getDefaultNode().attrs().list()) {
 		xData.append(xSeparator + attr.name() + " = " + attr.value().toGv());
 		xSeparator = ", ";
 	    }

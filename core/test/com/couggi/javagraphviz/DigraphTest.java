@@ -78,7 +78,7 @@ public class DigraphTest {
 	public void testOutput() { 
 	
 		digraph.attr("bgcolor").value("#000");
-		digraph.node().attr("shape").value("doublecircle");
+		digraph.getDefaultNode().attr("shape").value("doublecircle");
 		digraph.edge().attr("shape").value("folder");
 		Node nodeA = digraph.addNode("nodeA");
 		nodeA.attr("fillcolor").value("#fff");
