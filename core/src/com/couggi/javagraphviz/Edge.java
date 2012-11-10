@@ -22,6 +22,21 @@ public class Edge implements Component {
 	this.endNode = endNode;
     }
 
+    /**
+     * Creates an edge between two nodes.
+     * 
+     * @param startNode
+     * @param endNode
+     * @return the created edge
+     */
+    public static Edge connect(Node startNode, Node endNode) {
+	final Graph graph = startNode.graph();
+	if (graph != endNode.graph()) {
+	    throw new IllegalArgumentException("Nodes must be part of the same graph!");
+	}
+	return new Edge(startNode, endNode, graph);
+    }
+
     public Node getStartNode() {
 	return startNode;
     }
