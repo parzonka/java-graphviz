@@ -58,7 +58,7 @@ public class Edge extends Component {
 	String xSeparator = "";
 
 	for (Entry<String, String> attribute : getAttributes().entrySet()) {
-	    xAttr.append(xSeparator + attribute.getKey() + " = " + attribute.getValue());
+	    xAttr.append(xSeparator + attribute.getKey() + " = \"" + attribute.getValue() + "\"");
 	    xSeparator = ", ";
 	}
 	if (xAttr.length() > 0) {
