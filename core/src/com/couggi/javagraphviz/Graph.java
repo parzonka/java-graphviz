@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 
 public class Graph extends Component {
 
@@ -97,11 +96,11 @@ public class Graph extends Component {
     public void getGlobalEdgeAttributeValue(String attribute) {
 	this.edgeAttributes.get(attribute);
     }
-    
+
     public void getGlobalNodeAttributeValue(String attribute) {
-   	this.globalNodeAttributes.get(attribute);
-       }
-    
+	this.globalNodeAttributes.get(attribute);
+    }
+
     public void setGlobalNodeAttribute(String attribute, String value) {
 	this.globalNodeAttributes.put(attribute, value);
     }
@@ -122,72 +121,38 @@ public class Graph extends Component {
 	return "digraph";
     }
 
-    @Override
     public String output() {
 
-	StringBuffer xDOTScript = new StringBuffer("");
-	String xSeparator = "";
-	StringBuffer xData = new StringBuffer("");
-
-	// mount the graph attributes
+	StringBuilder sb = new StringBuilder();
+	
+	sb.append(this.getType()).append(" ").append(this.name()).append(" {");
 	if (!getAttributes().isEmpty()) {
-	    for (Entry<String, String> attr : getAttributes().entrySet()) {
-		xData.append(xSeparator + attr.getKey() + " = \"" + attr.getValue() + "\"");
-		xSeparator = ", ";
-	    }
-	    xDOTScript.append(" graph [" + xData + "];");
+	    sb.append(" graph");
+	    appendAttributes(sb, getAttributes());
+	    sb.append(";");
 	}
-
-	// reset variables
-	xSeparator = "";
-	xData = new StringBuffer("");
-
-	// mount the node attributes
-	if (!this.getGlobalNodeAttributes().isEmpty()) {
-	    for (Entry<String, String> attribute : this.getGlobalNodeAttributes().entrySet()) {
-		xData.append(xSeparator + attribute.getKey() + " = \"" + attribute.getValue() + "\"");
-		xSeparator = ", ";
-	    }
-	    xDOTScript.append(" node [" + xData + "];");
+	if (!getGlobalNodeAttributes().isEmpty()) {
+	    sb.append(" node");
+	    appendAttributes(sb, getGlobalNodeAttributes());
+	    sb.append(";");
 	}
-
-	// reset variables
-	xSeparator = "";
-	xData = new StringBuffer("");
-
-	// mount the edge attributes
-	if (!this.getGlobalEdgeAttributes().isEmpty()) {
-	    for (Entry<String, String> attribute : this.getGlobalEdgeAttributes().entrySet()) {
-		xData.append(xSeparator + attribute.getKey() + " = \"" + attribute.getValue() + "\"");
-		xSeparator = ", ";
-	    }
-	    xDOTScript.append(" edge [" + xData + "];");
+	if (!getGlobalEdgeAttributes().isEmpty()) {
+	    sb.append(" edge");
+	    appendAttributes(sb, getGlobalEdgeAttributes());
+	    sb.append(";");
 	}
-
-	// reset variables
-	xSeparator = "";
-	xData = new StringBuffer("");
-
-	// mount the subgraph
 	for (SubGraph subGraph : subGraphs) {
-	    xDOTScript.append(xSeparator + subGraph.output());
+	    sb.append(" ").append(subGraph.output());
 	}
-
-	// mount components output
-	// nodes
 	for (Component component : this.nodes()) {
-	    xDOTScript.append(" " + component.output() + "");
+	    sb.append(" ").append(component.output());
 	}
-	// edges
 	for (Component component : this.edges()) {
-	    xDOTScript.append(" " + component.output() + "");
+	    sb.append(" ").append(component.output());
 	}
+	sb.append("}");
 
-	// structure final
-	xDOTScript = new StringBuffer(this.getType()).append(" ").append(this.name()).append(" {").append(xDOTScript)
-		.append("}");
-
-	return (xDOTScript.toString());
+	return (sb.toString());
 
     }
 

@@ -87,7 +87,7 @@ public class DigraphTest {
 	StringBuffer xData = new StringBuffer("graph [bgcolor = \"#000\"];");
 	xData.append(" node [shape = \"doublecircle\"];");
 	xData.append(" edge [shape = \"folder\"];");
-	xData.append("subgraph cluster_hello_world {");
+	xData.append(" subgraph cluster_hello_world {");
 	xData.append(" hello [label = \"hello\"];");
 	xData.append(" world [label = \"world\"];");
 	xData.append(" hello -> world;");
