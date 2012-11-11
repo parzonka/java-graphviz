@@ -1,9 +1,12 @@
 package javagraphviz;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.Arrays;
 import java.util.List;
 
@@ -41,6 +44,9 @@ public class GraphvizEngine {
 	    }
 
 	    Process process = Runtime.getRuntime().exec(sb.toString(), null, executionPath);
+
+	    ProcessErrorLogger processErrorLogger = new ProcessErrorLogger(process.getErrorStream());
+	    processErrorLogger.start();
 
 	    if (process.waitFor() != 0) {
 		throw new GraphvizEngineException("Process has not terminated normally!");
@@ -166,6 +172,26 @@ public class GraphvizEngine {
      */
     public void setExecutionPath(String executionPath) {
 	this.executionPath = executionPath;
+    }
+
+    class ProcessErrorLogger extends Thread {
+	final InputStream is;
+
+	ProcessErrorLogger(InputStream is) {
+	    this.is = is;
+	}
+
+	public void run() {
+	    try {
+		InputStreamReader isr = new InputStreamReader(is);
+		BufferedReader br = new BufferedReader(isr);
+		String line;
+		while ((line = br.readLine()) != null)
+		    System.err.println(line);
+	    } catch (IOException ioe) {
+		ioe.printStackTrace();
+	    }
+	}
     }
 
 }
