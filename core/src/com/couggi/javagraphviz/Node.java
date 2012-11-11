@@ -1,6 +1,5 @@
 package com.couggi.javagraphviz;
 
-import java.util.Map.Entry;
 
 public class Node extends Component {
 
@@ -21,26 +20,13 @@ public class Node extends Component {
 
     @Override
     public String output() {
-
-	StringBuffer xOut = new StringBuffer(name());
-	StringBuffer xAttr = new StringBuffer("");
-	String xSeparator = "";
-
-	for (Entry<String, String> attrs : getAttributes().entrySet()) {
-	    if ("html".equals(attrs.getKey())) {
-		xAttr.append(xSeparator + "label = " + attrs.getValue());
-	    } else {
-		xAttr.append(xSeparator + attrs.getKey() + " = \"" + attrs.getValue() + "\"");
-	    }
-	    xSeparator = ", ";
+	StringBuilder sb = new StringBuilder();
+	sb.append(name());
+	if (getAttributes().size() > 0) {
+	    appendAttributes(sb, getAttributes());
 	}
-	if (xAttr.length() > 0) {
-	    xOut.append(" [" + xAttr.toString() + "]");
-	}
-	xOut.append(";");
-
-	return (xOut.toString());
-
+	sb.append(";");
+	return (sb.toString());
     }
 
     public Graph graph() {
