@@ -57,6 +57,12 @@ public class GvNode extends GvComponent {
 	return true;
     }
 
+
+    @Override
+    public String toString() {
+	return "N(" + getId() + "=\"" + getAttributeValue("label") +  "\")";
+    }
+
     public GvComponent setFixedSize(boolean fixedSize) {
 	return setAttribute("fixedsize", Boolean.toString(fixedSize));
     }
