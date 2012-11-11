@@ -5,8 +5,8 @@ import java.util.Map;
 
 public abstract class Component {
 
-    private String id;
-    private Map<String, String> attributes;
+    private final String id;
+    private final Map<String, String> attributes;
 
     public Component(String id) {
 	this.id = id;
