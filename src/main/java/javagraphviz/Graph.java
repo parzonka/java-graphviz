@@ -133,7 +133,7 @@ public class Graph extends Component {
 	return graphType;
     }
 
-    public String output() {
+    public String getDescription() {
 
 	StringBuilder sb = new StringBuilder();
 	
@@ -154,13 +154,13 @@ public class Graph extends Component {
 	    sb.append(";");
 	}
 	for (SubGraph subGraph : subGraphs) {
-	    sb.append(" ").append(subGraph.output());
+	    sb.append(" ").append(subGraph.getDescription());
 	}
 	for (Component component : this.getNodes()) {
-	    sb.append(" ").append(component.output());
+	    sb.append(" ").append(component.getDescription());
 	}
 	for (Component component : this.getEdges()) {
-	    sb.append(" ").append(component.output());
+	    sb.append(" ").append(component.getDescription());
 	}
 	sb.append("}");
 

@@ -19,7 +19,7 @@ public class Node extends Component {
     }
 
     @Override
-    public String output() {
+    public String getDescription() {
 	StringBuilder sb = new StringBuilder();
 	sb.append(getId());
 	if (getAttributes().size() > 0) {

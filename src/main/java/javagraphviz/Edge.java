@@ -45,7 +45,7 @@ public class Edge extends Component {
     }
 
     @Override
-    public String output() {
+    public String getDescription() {
 	StringBuilder sb = new StringBuilder();
 	sb.append(this.startNode.getId()).append(" -> ").append(this.endNode.getId());
 	if (getAttributes().size() > 0) {

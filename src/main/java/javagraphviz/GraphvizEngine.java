@@ -27,7 +27,7 @@ public class GraphvizEngine {
      */
     public void process(Graph graph) {
 
-	final String graphDescription = graph.output();
+	final String graphDescription = graph.getDescription();
 
 	try {
 	    final StringBuilder sb = new StringBuilder();

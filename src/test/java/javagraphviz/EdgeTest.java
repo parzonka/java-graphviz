@@ -29,7 +29,7 @@ public class EdgeTest {
 	xAttr.append("shape" + " = " + "\"folder\"");
 	StringBuffer xOut = new StringBuffer("nodeA -> nodeB [" + xAttr.toString() + "];");
 
-	assertEquals(xOut.toString(), edge.output());
+	assertEquals(xOut.toString(), edge.getDescription());
     }
 
     public void staticConnect() {

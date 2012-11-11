@@ -38,7 +38,12 @@ public abstract class Component {
 	return id;
     }
 
-    public abstract String output();
+    /**
+     * Create the textual graph description interpreted by Graphviz.
+     * 
+     * @return the description
+     */
+    public abstract String getDescription();
 
     protected static void appendAttributes(StringBuilder sb, Map<String, String> attributes) {
 	sb.append(" [");

@@ -50,7 +50,7 @@ public class GraphTest {
 	StringBuffer out = new StringBuffer("digraph finite_state_machine { ");
 	out.append(xData).append("}");
 
-	Assert.assertEquals(out.toString(), graph.output());
+	Assert.assertEquals(out.toString(), graph.getDescription());
     }
 
     @Test
@@ -69,7 +69,7 @@ public class GraphTest {
 	StringBuffer out = new StringBuffer("digraph finite_state_machine { ");
 	out.append(xData).append("}");
 
-	Assert.assertEquals(out.toString(), graph.output());
+	Assert.assertEquals(out.toString(), graph.getDescription());
     }
 
     @Test
@@ -105,7 +105,7 @@ public class GraphTest {
 	StringBuffer out = new StringBuffer("digraph finite_state_machine { ");
 	out.append(xData).append("}");
 
-	Assert.assertEquals(out.toString(), graph.output());
+	Assert.assertEquals(out.toString(), graph.getDescription());
     }
 
     @Test

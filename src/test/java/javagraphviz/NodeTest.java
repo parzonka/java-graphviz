@@ -29,7 +29,7 @@ public class NodeTest {
 	xAttr.append(", shape" + " = " + "\"doublecircle\"");
 	StringBuffer xOut = new StringBuffer("nodeTest [" + xAttr.toString() + "];");
 
-	assertEquals(xOut.toString(), node.output());
+	assertEquals(xOut.toString(), node.getDescription());
     }
 
 }
