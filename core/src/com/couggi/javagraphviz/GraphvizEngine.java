@@ -12,13 +12,6 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- * Graphviz engine to generate of graph output
- * 
- * @author Everton Cardoso
- * @author Mateusz Parzonka
- * 
- */
 public class GraphvizEngine {
 
     private static final Logger log = Logger.getLogger("net.javagraphviz.GraphvizEngine");
@@ -90,7 +83,9 @@ public class GraphvizEngine {
      * <li>command-line</li>
      * <li>value of the PATH variable</li>
      * </ol>
-     * @param prog name of the executable
+     * 
+     * @param prog
+     *            name of the executable
      * @return
      */
     private String findExecutable(String prog) {

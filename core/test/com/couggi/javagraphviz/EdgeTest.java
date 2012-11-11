@@ -32,13 +32,13 @@ public class EdgeTest {
 
 	assertEquals(xOut.toString(), edge.output());
     }
-    
+
     public void staticConnect() {
 	Digraph graph = new Digraph("test");
 	Node a = graph.getNode();
 	Node b = graph.getNode();
 	edge = connect(a, b);
-	
+
 	assertEquals(a, edge.getStartNode());
 	assertEquals(b, edge.getEndNode());
     }

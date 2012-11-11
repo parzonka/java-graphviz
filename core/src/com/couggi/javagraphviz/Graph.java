@@ -3,13 +3,6 @@ package com.couggi.javagraphviz;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Represents a GraphViz graph.
- * 
- * @author Everton Cardoso
- * @author Mateusz Parzonka
- * 
- */
 public interface Graph {
 
     /**
@@ -21,8 +14,8 @@ public interface Graph {
     Node getDefaultNode();
 
     /**
-     * Returns an edge which serves as a prototype for all created edges. All attributes to the default edge apply to all
-     * edges of this graph, if they are not overwritten.
+     * Returns an edge which serves as a prototype for all created edges. All attributes to the default edge apply to
+     * all edges of this graph, if they are not overwritten.
      * 
      * @return
      */
@@ -47,7 +40,7 @@ public interface Graph {
      * create a node with name to graph.
      */
     Node addNode(String name);
-    
+
     String output();
 
     /**

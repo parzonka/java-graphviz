@@ -6,43 +6,16 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-/**
- * the Digraph Component of graphviz tools.
- * 
- * @author Everton Cardoso
- * 
- */
 public class Digraph extends Component implements Graph {
 
     private int idCount;
-
-    /**
-     * representation of general node attributes
-     */
     private Node defaultNode;
-
-    /**
-     * representation of general node attributes
-     */
     private Map<String, String> edgeAttributes;
-
-    /**
-     * nodes of the graph
-     */
     private Map<String, Node> nodes;
-
-    /**
-     * edges of the graph
-     */
     private List<Edge> edges;
-
     private List<SubGraph> subGraphs;
-
     private boolean prefIdEqualsLabel;
 
-    /**
-     * create a Digraph with name.
-     */
     public Digraph(String name) {
 	super(name);
 	this.defaultNode = new Node("___defaultNode___", this);
@@ -52,16 +25,10 @@ public class Digraph extends Component implements Graph {
 	this.subGraphs = new ArrayList<SubGraph>();
     }
 
-    /*
-     * @see net.javagraphviz.Graph#getDefaultNode()
-     */
     public Node getDefaultNode() {
 	return this.defaultNode;
     }
 
-    /*
-     * @see net.javagraphviz.Graph#addNode(java.lang.String)
-     */
     public Node addNode(String name) {
 	String id = nodes.containsKey(name) ? name + idCount++ : name;
 	Node node = new Node(name, id, this);
@@ -100,9 +67,6 @@ public class Digraph extends Component implements Graph {
 	return getNode(id);
     }
 
-    /*
-     * @see net.javagraphviz.Graph#addEdge(net.javagraphviz.Node, net.javagraphviz.Node)
-     */
     public Edge addEdge(Node nodeFrom, Node nodeTo) {
 	if (!containsNode(nodeFrom) || !containsNode(nodeFrom))
 	    throw new IllegalArgumentException("nodes not found");
