@@ -5,7 +5,7 @@ import javagraphviz.GraphvizEngine;
 import javagraphviz.Node;
 import javagraphviz.SubGraph;
 
-public class UsingLayers {
+public class SubgraphExample {
 
     public static void main(String[] args) {
 

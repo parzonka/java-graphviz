@@ -5,12 +5,12 @@ import javagraphviz.Graph;
 import javagraphviz.GraphvizEngine;
 import javagraphviz.Node;
 
-public class HelloWorldSample {
+public class AttributeExample {
 
     public static void main(String[] args) {
 
 	// define a graph with the Graph Type.
-	Graph graph = Graph.createDigraph("foobarworld");
+	Graph graph = Graph.createDigraph("G");
 	graph.setAttribute("rankdir", "LR");
 	graph.setGlobalNodeAttribute("shape", "record");
 	// create nodes with names
@@ -19,13 +19,13 @@ public class HelloWorldSample {
 	hello.setAttribute("width", "0.8");
 	hello.setAttribute("height", "0.6");
 	hello.setAttribute("label", "");
-	Edge label = graph.addEdge(hello, hello);
-	label.setAttribute("taillabel", "Mp1x123");
-	label.setAttribute("fontsize", "7");
-	label.setAttribute("arrowtail", "none");
-	label.setAttribute("arrowhead", "none");
-	label.setAttribute("labeldistance", "1.0");
-	label.setAttribute("labelangle", "-60.0");
+	Edge edge = graph.addEdge(hello, hello);
+	edge.setAttribute("taillabel", "Mp1x123");
+	edge.setAttribute("fontsize", "7");
+	edge.setAttribute("arrowtail", "none");
+	edge.setAttribute("arrowhead", "none");
+	edge.setAttribute("labeldistance", "1.0");
+	edge.setAttribute("labelangle", "-60.0");
 	// create the Graphviz engine to the graph
 	GraphvizEngine engine = new GraphvizEngine();
 	// generate output.
