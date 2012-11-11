@@ -1,7 +1,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.github</groupId>
+	<groupId>com.github.parzonka</groupId>
 	<artifactId>java-graphviz</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>Java-GraphViz</name>
@@ -33,4 +33,12 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
+
+	<distributionManagement>
+		<repository>
+			<id>local.repo</id>
+			<url>${local.repo.url}</url>
+		</repository>
+	</distributionManagement>
+
 </project>
