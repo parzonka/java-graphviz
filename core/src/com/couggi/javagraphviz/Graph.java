@@ -1,6 +1,7 @@
 package com.couggi.javagraphviz;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Represents a GraphViz graph.
@@ -25,7 +26,7 @@ public interface Graph {
      * 
      * @return
      */
-    Edge getDefaultEdge();
+    Map<String, String> getGlobalEdgeAttributes();
 
     /**
      * list of the nodes.

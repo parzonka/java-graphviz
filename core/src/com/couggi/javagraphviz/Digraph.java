@@ -24,7 +24,7 @@ public class Digraph extends Component implements Graph {
     /**
      * representation of general node attributes
      */
-    private Edge edgeDefault;
+    private Map<String, String> edgeAttributes;
 
     /**
      * nodes of the graph
@@ -46,7 +46,7 @@ public class Digraph extends Component implements Graph {
     public Digraph(String name) {
 	super(name);
 	this.defaultNode = new Node("___defaultNode___", this);
-	this.edgeDefault = new Edge(defaultNode, defaultNode, this);
+	this.edgeAttributes = new HashMap<String, String>();
 	this.nodes = new HashMap<String, Node>();
 	this.edges = new ArrayList<Edge>();
 	this.subGraphs = new ArrayList<SubGraph>();
@@ -122,11 +122,16 @@ public class Digraph extends Component implements Graph {
 	return contains;
     }
 
-    /*
-     * @see net.javagraphviz.Graph#edge()
-     */
-    public Edge getDefaultEdge() {
-	return this.edgeDefault;
+    public Map<String, String> getGlobalEdgeAttributes() {
+	return this.edgeAttributes;
+    }
+
+    public void setGlobalEdgeAttribute(String attribute, String value) {
+	this.edgeAttributes.put(attribute, value);
+    }
+
+    public void getGlobalEdgeAttributeValue(String attribute) {
+	this.edgeAttributes.get(attribute);
     }
 
     @Override
@@ -171,7 +176,7 @@ public class Digraph extends Component implements Graph {
 	// mount the node attributes
 	if (!this.getDefaultNode().getAttributes().isEmpty()) {
 	    for (Entry<String, String> attribute : this.getDefaultNode().getAttributes().entrySet()) {
-		xData.append(xSeparator + attribute.getKey() + " = " + attribute.getValue());
+		xData.append(xSeparator + attribute.getKey() + " = \"" + attribute.getValue() + "\"");
 		xSeparator = ", ";
 	    }
 	    xDOTScript.append(" node [" + xData + "];");
