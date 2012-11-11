@@ -1,6 +1,5 @@
 package javagraphviz;
 
-
 public class Edge extends Component {
 
     private final Graph graph;
@@ -95,6 +94,57 @@ public class Edge extends Component {
 
     public Graph getGraph() {
 	return graph;
+    }
+    
+    // --------- Common Graphviz attributes (from A to Z) ------------ //
+    
+    /**
+     * Set the type of the arrow to any in normal, inv, dot, invdot, odot, invodot, none, tee, empty, invempty, diamond,
+     * odiamond, ediamond, crow, box, obox, open, halfopen or vee.
+     * 
+     * @param arrowType
+     * @return this component
+     */
+    public Component setArrowType(String arrowType) {
+	return setAttribute("arrowtype", arrowType);
+    }
+
+    public Component setFixedSize(boolean fixedSize) {
+	return setAttribute("fixedsize", Boolean.toString(fixedSize));
+    }
+
+    public Component setFontColor(String fontColor) {
+	return setAttribute("fontcolor", fontColor);
+    }
+
+    public Component setLabel(String label) {
+	return setAttribute("label", label);
+    }
+
+    /**
+     * Specifies the width of the pen, in points, used to draw lines and curves, including the boundaries of edges and
+     * clusters. The value is inherited by subclusters. It has no effect on text.
+     * 
+     * @param penwidth
+     *            Minimum is 0.0, default is 1.0
+     * @return this component
+     */
+    public Component setPenwidth(double penwidth) {
+	return setAttribute("penwidth", Double.toString(penwidth));
+    }
+
+    public Component setShape(String shape) {
+	return setAttribute("shape", shape);
+    }
+
+    /**
+     * Set the shape to any of solid, dashed, dotted or bold.
+     * 
+     * @param shape
+     * @return this component
+     */
+    public Component setStyle(String style) {
+	return setAttribute("style", style);
     }
 
 }

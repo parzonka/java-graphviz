@@ -14,11 +14,11 @@ public class AttributeExample {
 	graph.setAttribute("rankdir", "LR");
 	graph.setGlobalNodeAttribute("shape", "record");
 	// create nodes with names
-	Node hello = graph.getNode("Hello");
-	hello.setAttribute("fixedsize", "true");
-	hello.setAttribute("width", "0.8");
-	hello.setAttribute("height", "0.6");
-	hello.setAttribute("label", "");
+	Node hello = graph.getNode();
+	hello.setFixedSize(true);
+	hello.setHeight(0.8);
+	hello.setWidth(0.6);
+	hello.setLabel("foo");
 	Edge edge = graph.addEdge(hello, hello);
 	edge.setAttribute("taillabel", "Mp1x123");
 	edge.setAttribute("fontsize", "7");
