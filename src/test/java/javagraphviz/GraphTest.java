@@ -13,7 +13,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 
-public class DigraphTest {
+public class GraphTest {
 
     Graph graph;
 
