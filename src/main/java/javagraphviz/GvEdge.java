@@ -18,6 +18,7 @@ public class GvEdge extends GvComponent {
 	this.graph = graph;
 	this.startNode = startNode;
 	this.endNode = endNode;
+	this.graph.getEdges().add(this);
     }
 
     /**
@@ -58,7 +59,7 @@ public class GvEdge extends GvComponent {
     @Override
     public int hashCode() {
 	final int prime = 31;
-	int result = 1;
+	int result = super.hashCode();
 	result = prime * result + ((endNode == null) ? 0 : endNode.hashCode());
 	result = prime * result + ((graph == null) ? 0 : graph.hashCode());
 	result = prime * result + ((startNode == null) ? 0 : startNode.hashCode());
@@ -69,7 +70,7 @@ public class GvEdge extends GvComponent {
     public boolean equals(Object obj) {
 	if (this == obj)
 	    return true;
-	if (obj == null)
+	if (!super.equals(obj))
 	    return false;
 	if (getClass() != obj.getClass())
 	    return false;

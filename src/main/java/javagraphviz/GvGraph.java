@@ -15,7 +15,7 @@ public class GvGraph extends GvComponent {
     private Map<String, GvNode> nodes;
     private List<GvEdge> edges;
     private List<GvSubGraph> subGraphs;
-    private boolean prefIdEqualsLabel;
+    private boolean prefIdEqualsLabel = true;
 
     protected GvGraph(String graphType, String name) {
 	super(name);
@@ -26,9 +26,10 @@ public class GvGraph extends GvComponent {
 	this.edges = new ArrayList<GvEdge>();
 	this.subGraphs = new ArrayList<GvSubGraph>();
     }
-    
+
     /**
      * Creates a new directed graph with the given name.
+     * 
      * @param name
      * @return the digraph
      */
@@ -59,9 +60,7 @@ public class GvGraph extends GvComponent {
 	    node = new GvNode(id, this);
 	    nodes.put(id, node);
 	}
-	if (prefIdEqualsLabel) {
-	    node.getAttributes().put("label", id);
-	}
+	node.setAttribute("label", id);
 	return node;
     }
 
@@ -82,7 +81,6 @@ public class GvGraph extends GvComponent {
 	if (!containsNode(nodeFrom) || !containsNode(nodeFrom))
 	    throw new IllegalArgumentException("nodes not found");
 	GvEdge edge = new GvEdge(nodeFrom, nodeTo, this);
-	edges.add(edge);
 	return edge;
     }
 
@@ -118,7 +116,7 @@ public class GvGraph extends GvComponent {
     }
 
     public List<GvEdge> getEdges() {
-	return Collections.unmodifiableList(this.edges);
+	return this.edges;
     }
 
     public List<GvNode> getNodes() {
@@ -136,7 +134,7 @@ public class GvGraph extends GvComponent {
     public String getDescription() {
 
 	StringBuilder sb = new StringBuilder();
-	
+
 	sb.append(this.getType()).append(" ").append(this.getId()).append(" {");
 	if (!getAttributes().isEmpty()) {
 	    sb.append(" graph");
