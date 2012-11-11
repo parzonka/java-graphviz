@@ -21,8 +21,16 @@ public abstract class Component {
 	return this.attributes;
     }
 
-    public void setAttribute(String attribute, String value) {
+    /**
+     * Sets the value of the given attribute.
+     * 
+     * @param attribute
+     * @param value
+     * @return this component (enabling 'fluent' API style)
+     */
+    public Component setAttribute(String attribute, String value) {
 	this.attributes.put(attribute, value);
+	return this;
     }
 
     public String name() {
