@@ -29,7 +29,7 @@ public class Node extends Component {
 	return (sb.toString());
     }
 
-    public Graph graph() {
+    public Graph getGraph() {
 	return graph;
     }
 

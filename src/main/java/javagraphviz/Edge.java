@@ -29,8 +29,8 @@ public class Edge extends Component {
      * @return the created edge
      */
     public static Edge connect(Node startNode, Node endNode) {
-	final Graph graph = startNode.graph();
-	if (graph != endNode.graph()) {
+	final Graph graph = startNode.getGraph();
+	if (graph != endNode.getGraph()) {
 	    throw new IllegalArgumentException("Nodes must be part of the same graph!");
 	}
 	return new Edge(startNode, endNode, graph);
