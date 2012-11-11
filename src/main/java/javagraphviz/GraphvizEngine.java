@@ -4,63 +4,52 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class GraphvizEngine {
 
-    private Map<String, OutputType> type;
-    private Graph graph;
+    private String outputType;
     private String layoutManager;
-    private File graphVizInstallationLocation;
+    private String executionPath;
+    private File graphvizPath;
 
-    /**
-     * directory path where the dot command will be executed.
-     */
-    private String directoryPathExecute = ".";
-
-    /**
-     * create the engine. type default = png.
-     */
-    public GraphvizEngine(Graph graph) {
-	this.graph = graph;
-	this.type = new HashMap<String, OutputType>();
-	this.type.put("png", new OutputType("png"));
+    public GraphvizEngine() {
 	this.layoutManager = "dot";
+	this.outputType = "eps";
+	this.executionPath = ".";
     }
 
     /**
-     * generate the output file
+     * Creates a diagram from the given graph.
      * 
+     * @param graph
      */
-    public void output() {
+    public void process(Graph graph) {
 
-	String dotContent = graph.output();
+	final String graphDescription = graph.output();
 
 	try {
-	    String prog = findExecutable(layoutManager);
-	    File tmpDot = createDotFileTemp("in", dotContent);
-
-	    StringBuffer outputTypes = new StringBuffer();
-	    for (OutputType type : this.type.values()) {
-		outputTypes.append(" -T").append(type.name()).append(" -o").append(type.filePath());
+	    final StringBuilder sb = new StringBuilder();
+	    sb.append(findExecutable(getLayoutManager()));
+	    sb.append(" -T  ").append(getOutputType());
+	    sb.append(" -o ").append(graph.getId()).append(".").append(getOutputType()).append(" ");
+	    sb.append(createTempDescription(graphDescription).getPath());
+	    File executionPath = new File(getExecutionPath());
+	    if (!executionPath.exists()) {
+		executionPath.mkdirs();
 	    }
 
-	    String dotCommand = prog + outputTypes + " " + tmpDot.getPath();
-	    Process process = Runtime.getRuntime().exec(dotCommand, null, new File(directoryPathExecute));
+	    Process process = Runtime.getRuntime().exec(sb.toString(), null, executionPath);
 
-	    @SuppressWarnings("unused")
-	    int exitVal = process.waitFor();
+	    if (process.waitFor() != 0) {
+		throw new GraphvizEngineException("Process has not terminated normally!");
+	    }
 
 	} catch (IOException e) {
-
 	    throw new GraphvizOutputException(e.getMessage(), e);
 
 	} catch (InterruptedException e) {
-
 	    throw new GraphvizOutputException(e.getMessage(), e);
 	}
 
@@ -74,46 +63,45 @@ public class GraphvizEngine {
      * <li>value of the PATH variable</li>
      * </ol>
      * 
-     * @param prog
-     *            name of the executable
-     * @return
+     * @param executable
+     * @return path of the executable
      */
-    private String findExecutable(String prog) {
+    private String findExecutable(String executable) {
 	List<String> paths = Arrays.asList(System.getenv().get("PATH").split(File.pathSeparator));
-	final String graphvizInstallationLocationViaProperty = System.getProperty("graphviz.installation.location");
-	if (graphvizInstallationLocationViaProperty != null) {
-	    final File location = new File(graphvizInstallationLocationViaProperty);
+	final String graphvizLocationAsProperty = System.getProperty("graphviz.installation.location");
+	if (graphvizLocationAsProperty != null) {
+	    final File location = new File(graphvizLocationAsProperty);
 	    if (!location.exists() || !location.isDirectory()) {
-		throw new GraphvizEngineException("GraphViz installation location"
-			+ graphvizInstallationLocationViaProperty + " does not exist or is not a directory.");
+		throw new GraphvizEngineException("GraphViz installation location provided as property ["
+			+ graphvizLocationAsProperty + "] does not exist or is not a directory.");
 	    }
-	    paths.add(0, graphvizInstallationLocationViaProperty);
+	    paths.add(0, graphvizLocationAsProperty);
 	}
-	if (graphVizInstallationLocation != null) {
-	    paths.add(0, graphVizInstallationLocation.getAbsolutePath());
+	if (graphvizPath != null) {
+	    paths.add(0, graphvizPath.getAbsolutePath());
 	}
 
 	for (String path : paths) {
-	    String file = (path == null) ? prog : (path + File.separator + prog);
+	    String file = (path == null) ? executable : (path + File.separator + executable);
 	    if (new File(file).canExecute() && !new File(file).isDirectory()) {
 		return file;
 	    }
 	}
-	throw new GraphvizEngineException(prog + " program not found.");
+	throw new GraphvizEngineException(executable + " program not found.");
     }
 
     /**
-     * create a file temp with the content of the dot.
+     * Create a temporary file containing the graph description
      * 
-     * @param dotContent
+     * @param graphDescription
      * @return
      */
-    private File createDotFileTemp(String suffix, String dotContent) {
+    private static File createTempDescription(String graphDescription) {
 	try {
-	    File temp = File.createTempFile("graph", suffix);
-	    if (dotContent != null) {
+	    File temp = File.createTempFile("graph", ".dot");
+	    if (graphDescription != null) {
 		BufferedWriter out = new BufferedWriter(new FileWriter(temp));
-		out.write(dotContent);
+		out.write(graphDescription);
 		out.close();
 	    }
 	    return temp;
@@ -123,86 +111,61 @@ public class GraphvizEngine {
     }
 
     /**
-     * type of output
-     */
-    public List<OutputType> types() {
-	return new ArrayList<OutputType>(type.values());
-    }
-
-    /**
-     * define where the dot command will be executed.
+     * Set the path to the location containing your GraphViz binaries (dot, neato, ...) which may be
+     * /usr/local/graphviz-x.x, /usr/local/bin or similar.
      * 
-     * @param dir
-     * @return
+     * @param graphvizPath
      */
-    public GraphvizEngine fromDirectoryPath(String path) {
-	this.directoryPathExecute = path;
-	return this;
+    public void setGraphvizPath(String graphvizPath) {
+	this.graphvizPath = new File(graphvizPath);
+	if (!this.graphvizPath.exists() || !this.graphvizPath.isDirectory()) {
+	    throw new GraphvizEngineException("GraphViz installation location [" + this.graphvizPath.getAbsolutePath()
+		    + "] does not exist or is not a directory.");
+	}
+    }
+
+    public String getOutputType() {
+	return outputType;
     }
 
     /**
-     * set or add a output type.
+     * Sets the output format. Avaiable options are: bmp, canon, cgimage, cmap, cmapx, cmapx_np, dot, eps, exr, fig, gd,
+     * gd2, gif, gv, imap, imap_np, ismap, jp2, jpe, jpeg, jpg, pct, pdf, pict, plain, plain-ext, png, ps, ps2, psd,
+     * sgi, svg, svgz, tga, tif, tiff, tk, vml, vmlz, vrml, wbmp, xdot
+     * 
+     * @param outputFormat
+     *            default is "eps"
      */
-    public OutputType addType(String name) {
-	OutputType output = type.get(name);
-	if (output == null) {
-	    output = new OutputType(name);
-	    type.put(name, output);
-	}
-
-	return this.type.get(name);
+    public void setOutputType(String outputFormat) {
+	this.outputType = outputFormat;
     }
 
-    /**
-     * remove a output type.
-     */
-    public GraphvizEngine removeType(String name) {
-	if (type.size() == 1) {
-	    throw new IllegalStateException("must be a type defined.");
-	}
-
-	type.remove(name);
-
-	return this;
+    public String getLayoutManager() {
+	return layoutManager;
     }
 
     /**
      * Set the layout manager. Available options are: dot, neato, fdp, sfdp, twopi, circo
+     * 
+     * @param layoutManager
+     *            default is "dot"
      */
-    public GraphvizEngine layout(String layoutManager) {
+    public void setLayoutManager(String layoutManager) {
 	this.layoutManager = layoutManager;
-	return this;
+    }
+
+    public String getExecutionPath() {
+	return executionPath;
     }
 
     /**
-     * set filePath of the output type. only used method when exist a output type.
+     * Set the location, where the dot command will be executed.
      * 
-     * @param filePath
+     * @param path
+     *            default is ".", i.e. the working path of the executing java program
      */
-    public GraphvizEngine toFilePath(String filePath) {
-	if (this.type.size() > 1) {
-	    throw new IllegalStateException("there was more of a type defined.");
-	}
-
-	this.type.values().iterator().next().toFilePath(filePath);
-
-	return this;
-    }
-
-    /**
-     * Set the path to the location containing your GraphViz binaries (dot, neato, ...) which may be
-     * /usr/local/graphviz-x.x, /usr/local/bin or similar.
-     * 
-     * @param filePath
-     */
-    public GraphvizEngine setGraphVizInstallationLocation(String filePath) {
-
-	this.graphVizInstallationLocation = new File(filePath);
-	if (!graphVizInstallationLocation.exists() || !graphVizInstallationLocation.isDirectory()) {
-	    throw new GraphvizEngineException("GraphViz installation location" + graphVizInstallationLocation
-		    + " does not exist or is not a directory.");
-	}
-	return this;
+    public void setExecutionPath(String executionPath) {
+	this.executionPath = executionPath;
     }
 
 }

@@ -40,9 +40,8 @@ public class UsingLayers {
 	graph.addEdge(chicken, hello);
 	names.addEdge(cardoso, world);
 
-	GraphvizEngine engine = new GraphvizEngine(graph);
-	engine.toFilePath("helloworld.png");
-	engine.output();
+	GraphvizEngine engine = new GraphvizEngine();
+	engine.process(graph);
 
     }
 }

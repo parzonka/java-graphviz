@@ -10,7 +10,7 @@ public class HelloWorldSample {
     public static void main(String[] args) {
 
 	// define a graph with the Graph Type.
-	Graph graph = Graph.createDigraph("G");
+	Graph graph = Graph.createDigraph("foobarworld");
 	graph.setAttribute("rankdir", "LR");
 	graph.setGlobalNodeAttribute("shape", "record");
 	// create nodes with names
@@ -26,13 +26,10 @@ public class HelloWorldSample {
 	label.setAttribute("arrowhead", "none");
 	label.setAttribute("labeldistance", "1.0");
 	label.setAttribute("labelangle", "-60.0");
-	// create a edge with hello node and world node.
 	// create the Graphviz engine to the graph
-	GraphvizEngine engine = new GraphvizEngine(graph);
-	// define the file name of the output.
-	engine.toFilePath("helloworld.png");
+	GraphvizEngine engine = new GraphvizEngine();
 	// generate output.
-	engine.output();
+	engine.process(graph);
 
     }
 }
