@@ -1,6 +1,6 @@
 package helloworld;
 
-import com.couggi.javagraphviz.Digraph;
+import com.couggi.javagraphviz.Graph;
 import com.couggi.javagraphviz.GraphvizEngine;
 import com.couggi.javagraphviz.Node;
 import com.couggi.javagraphviz.SubGraph;
@@ -14,8 +14,8 @@ public class UsingLayers {
 	SubGraph animals = new SubGraph("animals");
 	animals.setAttribute("label", "#animals");
 
-	// define a graph with the Digraph Type.
-	Digraph graph = new Digraph("G");
+	// define a graph with the Graph Type.
+	Graph graph = new Graph("G");
 	graph.addSubGraph(names);
 	graph.addSubGraph(animals);
 

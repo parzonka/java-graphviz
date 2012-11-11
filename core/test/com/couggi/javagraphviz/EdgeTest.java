@@ -1,15 +1,10 @@
 package com.couggi.javagraphviz;
 
-import static org.junit.Assert.*;
+import static com.couggi.javagraphviz.Edge.connect;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.Before;
 import org.junit.Test;
-import static com.couggi.javagraphviz.Edge.connect;
-
-import com.couggi.javagraphviz.Digraph;
-import com.couggi.javagraphviz.Edge;
-import com.couggi.javagraphviz.Graph;
-import com.couggi.javagraphviz.Node;
 
 public class EdgeTest {
 
@@ -17,7 +12,7 @@ public class EdgeTest {
 
     @Before
     public void onSetUp() {
-	Graph graph = new Digraph("test");
+	Graph graph = new Graph("test");
 	edge = new Edge(new Node("nodeA", graph), new Node("nodeB", graph), graph);
     }
 
@@ -34,7 +29,7 @@ public class EdgeTest {
     }
 
     public void staticConnect() {
-	Digraph graph = new Digraph("test");
+	Graph graph = new Graph("test");
 	Node a = graph.getNode();
 	Node b = graph.getNode();
 	edge = connect(a, b);

@@ -1,12 +1,9 @@
 package com.couggi.javagraphviz;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.Before;
 import org.junit.Test;
-
-import com.couggi.javagraphviz.Digraph;
-import com.couggi.javagraphviz.Node;
 
 public class NodeTest {
 
@@ -14,7 +11,7 @@ public class NodeTest {
 
     @Before
     public void onSetUp() {
-	node = new Node("nodeTest", new Digraph("DigraphTest"));
+	node = new Node("nodeTest", new Graph("GraphTest"));
     }
 
     @Test

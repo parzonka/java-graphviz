@@ -9,32 +9,32 @@ import org.junit.Test;
 
 public class DigraphTest {
 
-    Digraph digraph;
+    Graph graph;
 
     @Before
     public void onSetUp() {
-	digraph = new Digraph("finite_state_machine");
+	graph = new Graph("finite_state_machine");
     }
 
     @Test
     public void addNode() {
-	Node node = digraph.addNode("nodeA");
-	Assert.assertEquals(new Node("nodeA", digraph), node);
+	Node node = graph.addNode("nodeA");
+	Assert.assertEquals(new Node("nodeA", graph), node);
     }
 
     @Test
     public void addEdge() {
-	Node nodeFrom = digraph.addNode("nodeFrom");
-	Node nodeTo = digraph.addNode("nodeTo");
-	Edge edge = digraph.addEdge(nodeFrom, nodeTo);
-	Assert.assertEquals(new Edge(nodeFrom, nodeTo, digraph), edge);
+	Node nodeFrom = graph.addNode("nodeFrom");
+	Node nodeTo = graph.addNode("nodeTo");
+	Edge edge = graph.addEdge(nodeFrom, nodeTo);
+	Assert.assertEquals(new Edge(nodeFrom, nodeTo, graph), edge);
     }
 
     @Test
     public void multipleNodes() {
-	Node a = digraph.addNode("nodeA");
-	Node b = digraph.addNode("nodeA");
-	digraph.addEdge(a, b);
+	Node a = graph.addNode("nodeA");
+	Node b = graph.addNode("nodeA");
+	graph.addEdge(a, b);
 
 	StringBuffer xData = new StringBuffer();
 	xData.append("nodeA [label = \"nodeA\"]; ");
@@ -44,15 +44,15 @@ public class DigraphTest {
 	StringBuffer out = new StringBuffer("digraph finite_state_machine { ");
 	out.append(xData).append("}");
 
-	Assert.assertEquals(out.toString(), digraph.output());
+	Assert.assertEquals(out.toString(), graph.output());
     }
 
     @Test
     public void multipleEdges() {
-	Node a = digraph.addNode("nodeA");
-	Node b = digraph.addNode("nodeB");
-	digraph.addEdge(a, b);
-	digraph.addEdge(a, b);
+	Node a = graph.addNode("nodeA");
+	Node b = graph.addNode("nodeB");
+	graph.addEdge(a, b);
+	graph.addEdge(a, b);
 
 	StringBuffer xData = new StringBuffer();
 	xData.append("nodeB [label = \"nodeB\"]; ");
@@ -63,26 +63,26 @@ public class DigraphTest {
 	StringBuffer out = new StringBuffer("digraph finite_state_machine { ");
 	out.append(xData).append("}");
 
-	Assert.assertEquals(out.toString(), digraph.output());
+	Assert.assertEquals(out.toString(), graph.output());
     }
 
     @Test
     public void testOutput() {
 
-	digraph.setAttribute("bgcolor", "#000");
-	digraph.setGlobalNodeAttribute("shape", "doublecircle");
-	digraph.getGlobalEdgeAttributes().put("shape", "folder");
-	Node nodeA = digraph.addNode("nodeA");
+	graph.setAttribute("bgcolor", "#000");
+	graph.setGlobalNodeAttribute("shape", "doublecircle");
+	graph.getGlobalEdgeAttributes().put("shape", "folder");
+	Node nodeA = graph.addNode("nodeA");
 	nodeA.setAttribute("fillcolor", "#fff");
-	Node nodeB = digraph.addNode("nodeB");
+	Node nodeB = graph.addNode("nodeB");
 	nodeB.setAttribute("shape", "circle");
-	Edge edge = digraph.addEdge(nodeA, nodeB);
+	Edge edge = graph.addEdge(nodeA, nodeB);
 	edge.setAttribute("label", "change_label");
 	SubGraph subGraph = new SubGraph("hello_world");
 	Node hello = subGraph.addNode("hello");
 	Node world = subGraph.addNode("world");
 	subGraph.addEdge(hello, world);
-	digraph.addSubGraph(subGraph);
+	graph.addSubGraph(subGraph);
 
 	StringBuffer xData = new StringBuffer("graph [bgcolor = \"#000\"];");
 	xData.append(" node [shape = \"doublecircle\"];");
@@ -99,7 +99,7 @@ public class DigraphTest {
 	StringBuffer out = new StringBuffer("digraph finite_state_machine { ");
 	out.append(xData).append("}");
 
-	Assert.assertEquals(out.toString(), digraph.output());
+	Assert.assertEquals(out.toString(), graph.output());
     }
 
     @Test
@@ -110,9 +110,9 @@ public class DigraphTest {
 	Node world = subGraph.addNode("world");
 	subGraph.addEdge(hello, world);
 
-	digraph.addSubGraph(subGraph);
+	graph.addSubGraph(subGraph);
 
-	Assert.assertEquals(Arrays.asList(subGraph), digraph.subGraphs());
+	Assert.assertEquals(Arrays.asList(subGraph), graph.subGraphs());
     }
 
     @Test
@@ -122,13 +122,13 @@ public class DigraphTest {
 	Node hello = subGraphOne.addNode("hello");
 	Node world = subGraphOne.addNode("world");
 	subGraphOne.addEdge(hello, world);
-	Graph subGraphTwo = new Digraph("G");
+	Graph subGraphTwo = new Graph("G");
 	Node cat = subGraphTwo.addNode("cat");
 	Node dog = subGraphTwo.addNode("dog");
 	subGraphTwo.addEdge(cat, dog);
-	digraph.addSubGraph(subGraphOne);
+	graph.addSubGraph(subGraphOne);
 
-	Edge edge = digraph.addEdge(hello, dog);
+	Edge edge = graph.addEdge(hello, dog);
 
 	Assert.assertEquals(subGraphOne, edge.getStartNode().graph());
 	Assert.assertEquals(subGraphTwo, edge.getEndNode().graph());
@@ -146,11 +146,11 @@ public class DigraphTest {
 	Node cat = subGraphTwo.addNode("cat");
 	Node dog = subGraphTwo.addNode("dog");
 	subGraphTwo.addEdge(cat, dog);
-	digraph.addSubGraph(subGraphOne);
-	Graph graphOrphan = new Digraph("G");
+	graph.addSubGraph(subGraphOne);
+	Graph graphOrphan = new Graph("G");
 	Node nodeOphan = graphOrphan.addNode("node_orphan");
 
-	digraph.addEdge(nodeOphan, dog);
+	graph.addEdge(nodeOphan, dog);
     }
 
 }
