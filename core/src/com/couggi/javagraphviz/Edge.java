@@ -1,6 +1,5 @@
 package com.couggi.javagraphviz;
 
-import java.util.Map.Entry;
 
 public class Edge extends Component {
 
@@ -47,26 +46,13 @@ public class Edge extends Component {
 
     @Override
     public String output() {
-
-	String xLink = " -> ";
-
-	String xNodeNameOne = this.startNode.name();
-	String xNodeNameTwo = this.endNode.name();
-
-	StringBuffer xOut = new StringBuffer(xNodeNameOne + xLink + xNodeNameTwo);
-	StringBuffer xAttr = new StringBuffer("");
-	String xSeparator = "";
-
-	for (Entry<String, String> attribute : getAttributes().entrySet()) {
-	    xAttr.append(xSeparator + attribute.getKey() + " = \"" + attribute.getValue() + "\"");
-	    xSeparator = ", ";
+	StringBuilder sb = new StringBuilder();
+	sb.append(this.startNode.name()).append(" -> ").append(this.endNode.name());
+	if (getAttributes().size() > 0) {
+	    appendAttributes(sb, getAttributes());
 	}
-	if (xAttr.length() > 0) {
-	    xOut.append(" [" + xAttr.toString() + "]");
-	}
-	xOut.append(";");
-
-	return (xOut.toString());
+	sb.append(";");
+	return (sb.toString());
 
     }
 

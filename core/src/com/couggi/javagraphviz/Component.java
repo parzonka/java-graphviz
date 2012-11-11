@@ -2,6 +2,7 @@ package com.couggi.javagraphviz;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 
 public abstract class Component {
 
@@ -38,5 +39,15 @@ public abstract class Component {
     }
 
     public abstract String output();
+
+    protected static void appendAttributes(StringBuilder sb, Map<String, String> attributes) {
+	sb.append(" [");
+	String separator = "";
+	for (Entry<String, String> attribute : attributes.entrySet()) {
+	    sb.append(separator).append(attribute.getKey()).append(" = \"").append(attribute.getValue()).append("\"");
+	    separator = ", ";
+	}
+	sb.append("]");
+    }
 
 }
