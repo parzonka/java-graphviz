@@ -12,7 +12,7 @@ public class HelloWorldSample {
 	// define a graph with the Digraph Type.
 	Digraph graph = new Digraph("G");
 	graph.setAttribute("rankdir", "LR");
-	graph.getDefaultNode().setAttribute("shape", "record");
+	graph.setGlobalNodeAttribute("shape", "record");
 	// create nodes with names
 	Node hello = graph.getNode("Hello");
 	hello.setAttribute("fixedsize", "true");

@@ -9,7 +9,7 @@ import java.util.Map.Entry;
 public class Digraph extends Component implements Graph {
 
     private int idCount;
-    private Node defaultNode;
+    private Map<String, String> globalNodeAttributes;
     private Map<String, String> edgeAttributes;
     private Map<String, Node> nodes;
     private List<Edge> edges;
@@ -18,15 +18,15 @@ public class Digraph extends Component implements Graph {
 
     public Digraph(String name) {
 	super(name);
-	this.defaultNode = new Node("___defaultNode___", this);
+	this.globalNodeAttributes = new HashMap<String, String>();
 	this.edgeAttributes = new HashMap<String, String>();
 	this.nodes = new HashMap<String, Node>();
 	this.edges = new ArrayList<Edge>();
 	this.subGraphs = new ArrayList<SubGraph>();
     }
 
-    public Node getDefaultNode() {
-	return this.defaultNode;
+    public Map<String, String> getGlobalNodeAttributes() {
+	return this.globalNodeAttributes;
     }
 
     public Node addNode(String name) {
@@ -97,6 +97,14 @@ public class Digraph extends Component implements Graph {
     public void getGlobalEdgeAttributeValue(String attribute) {
 	this.edgeAttributes.get(attribute);
     }
+    
+    public void getGlobalNodeAttributeValue(String attribute) {
+   	this.globalNodeAttributes.get(attribute);
+       }
+    
+    public void setGlobalNodeAttribute(String attribute, String value) {
+	this.globalNodeAttributes.put(attribute, value);
+    }
 
     @Override
     public List<Edge> edges() {
@@ -127,7 +135,7 @@ public class Digraph extends Component implements Graph {
 	// mount the graph attributes
 	if (!getAttributes().isEmpty()) {
 	    for (Entry<String, String> attr : getAttributes().entrySet()) {
-		xData.append(xSeparator + attr.getKey() + " = " + attr.getValue());
+		xData.append(xSeparator + attr.getKey() + " = \"" + attr.getValue() + "\"");
 		xSeparator = ", ";
 	    }
 	    xDOTScript.append(" graph [" + xData + "];");
@@ -138,8 +146,8 @@ public class Digraph extends Component implements Graph {
 	xData = new StringBuffer("");
 
 	// mount the node attributes
-	if (!this.getDefaultNode().getAttributes().isEmpty()) {
-	    for (Entry<String, String> attribute : this.getDefaultNode().getAttributes().entrySet()) {
+	if (!this.getGlobalNodeAttributes().isEmpty()) {
+	    for (Entry<String, String> attribute : this.getGlobalNodeAttributes().entrySet()) {
 		xData.append(xSeparator + attribute.getKey() + " = \"" + attribute.getValue() + "\"");
 		xSeparator = ", ";
 	    }
@@ -151,9 +159,9 @@ public class Digraph extends Component implements Graph {
 	xData = new StringBuffer("");
 
 	// mount the edge attributes
-	if (!this.getDefaultNode().getAttributes().isEmpty()) {
-	    for (Entry<String, String> attribute : this.getDefaultNode().getAttributes().entrySet()) {
-		xData.append(xSeparator + attribute.getKey() + " = " + attribute.getValue());
+	if (!this.getGlobalEdgeAttributes().isEmpty()) {
+	    for (Entry<String, String> attribute : this.getGlobalEdgeAttributes().entrySet()) {
+		xData.append(xSeparator + attribute.getKey() + " = \"" + attribute.getValue() + "\"");
 		xSeparator = ", ";
 	    }
 	    xDOTScript.append(" edge [" + xData + "];");

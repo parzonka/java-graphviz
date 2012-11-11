@@ -11,7 +11,7 @@ public interface Graph {
      * 
      * @return
      */
-    Node getDefaultNode();
+    Map<String, String> getGlobalNodeAttributes();
 
     /**
      * Returns an edge which serves as a prototype for all created edges. All attributes to the default edge apply to

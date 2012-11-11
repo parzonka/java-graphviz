@@ -70,7 +70,7 @@ public class DigraphTest {
     public void testOutput() {
 
 	digraph.setAttribute("bgcolor", "#000");
-	digraph.getDefaultNode().setAttribute("shape", "doublecircle");
+	digraph.setGlobalNodeAttribute("shape", "doublecircle");
 	digraph.getGlobalEdgeAttributes().put("shape", "folder");
 	Node nodeA = digraph.addNode("nodeA");
 	nodeA.setAttribute("fillcolor", "#fff");
