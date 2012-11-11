@@ -15,7 +15,7 @@ public class Edge extends Component {
      * @param graph
      */
     public Edge(Node startNode, Node endNode, Graph graph) {
-	super(startNode.name() + " -> " + endNode.name());
+	super(startNode.getId() + " -> " + endNode.getId());
 	this.graph = graph;
 	this.startNode = startNode;
 	this.endNode = endNode;
@@ -47,7 +47,7 @@ public class Edge extends Component {
     @Override
     public String output() {
 	StringBuilder sb = new StringBuilder();
-	sb.append(this.startNode.name()).append(" -> ").append(this.endNode.name());
+	sb.append(this.startNode.getId()).append(" -> ").append(this.endNode.getId());
 	if (getAttributes().size() > 0) {
 	    appendAttributes(sb, getAttributes());
 	}

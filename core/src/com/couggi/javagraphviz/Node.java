@@ -21,7 +21,7 @@ public class Node extends Component {
     @Override
     public String output() {
 	StringBuilder sb = new StringBuilder();
-	sb.append(name());
+	sb.append(getId());
 	if (getAttributes().size() > 0) {
 	    appendAttributes(sb, getAttributes());
 	}

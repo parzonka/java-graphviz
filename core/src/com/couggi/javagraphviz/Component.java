@@ -34,7 +34,7 @@ public abstract class Component {
 	return this;
     }
 
-    public String name() {
+    public String getId() {
 	return id;
     }
 

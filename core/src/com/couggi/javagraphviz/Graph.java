@@ -1,6 +1,7 @@
 package com.couggi.javagraphviz;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -75,7 +76,7 @@ public class Graph extends Component {
     }
 
     public boolean containsNode(Node node) {
-	boolean contains = this.nodes().contains(node);
+	boolean contains = this.getNodes().contains(node);
 	if (!contains)
 	    for (Graph graph : subGraphs) {
 		contains = graph.containsNode(node);
@@ -105,12 +106,12 @@ public class Graph extends Component {
 	this.globalNodeAttributes.put(attribute, value);
     }
 
-    public List<Edge> edges() {
-	return new ArrayList<Edge>(this.edges);
+    public List<Edge> getEdges() {
+	return Collections.unmodifiableList(this.edges);
     }
 
-    public List<Node> nodes() {
-	return new ArrayList<Node>(this.nodes.values());
+    public List<Node> getNodes() {
+	return Collections.unmodifiableList(new ArrayList<Node>(this.nodes.values()));
     }
 
     public List<SubGraph> subGraphs() {
@@ -125,7 +126,7 @@ public class Graph extends Component {
 
 	StringBuilder sb = new StringBuilder();
 	
-	sb.append(this.getType()).append(" ").append(this.name()).append(" {");
+	sb.append(this.getType()).append(" ").append(this.getId()).append(" {");
 	if (!getAttributes().isEmpty()) {
 	    sb.append(" graph");
 	    appendAttributes(sb, getAttributes());
@@ -144,10 +145,10 @@ public class Graph extends Component {
 	for (SubGraph subGraph : subGraphs) {
 	    sb.append(" ").append(subGraph.output());
 	}
-	for (Component component : this.nodes()) {
+	for (Component component : this.getNodes()) {
 	    sb.append(" ").append(component.output());
 	}
-	for (Component component : this.edges()) {
+	for (Component component : this.getEdges()) {
 	    sb.append(" ").append(component.output());
 	}
 	sb.append("}");
