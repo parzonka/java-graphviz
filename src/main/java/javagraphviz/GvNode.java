@@ -7,14 +7,14 @@ public class GvNode extends GvComponent {
     /**
      * create a node with name
      */
-    public GvNode(String name, GvGraph graph) {
-	this(name, name, graph);
+    public GvNode(String id, GvGraph graph) {
+	this(id, id, graph);
     }
 
     public GvNode(String label, String id, GvGraph graph) {
-	super(id);
-	this.graph = graph;
+	super(toSafeId(id));
 	setAttribute("label", label);
+	this.graph = graph;
     }
 
     @Override
@@ -31,11 +31,11 @@ public class GvNode extends GvComponent {
     public GvGraph getGraph() {
 	return graph;
     }
-
+    
     @Override
     public int hashCode() {
 	final int prime = 31;
-	int result = 1;
+	int result = super.hashCode();
 	result = prime * result + ((graph == null) ? 0 : graph.hashCode());
 	return result;
     }
@@ -44,7 +44,7 @@ public class GvNode extends GvComponent {
     public boolean equals(Object obj) {
 	if (this == obj)
 	    return true;
-	if (obj == null)
+	if (!super.equals(obj))
 	    return false;
 	if (getClass() != obj.getClass())
 	    return false;

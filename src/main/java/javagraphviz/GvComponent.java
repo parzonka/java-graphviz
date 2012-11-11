@@ -10,7 +10,7 @@ public abstract class GvComponent {
     private final Map<String, String> attributes;
 
     public GvComponent(String id) {
-	this.id = id;
+	this.id = toSafeId(id);
 	this.attributes = new HashMap<String, String>();
     }
 
@@ -30,8 +30,20 @@ public abstract class GvComponent {
      * @return this component (enabling 'fluent' API style)
      */
     public GvComponent setAttribute(String attribute, String value) {
+
 	this.attributes.put(attribute, value);
 	return this;
+    }
+
+    protected static String toSafeId(String id) {
+	String result = id;
+	result = result.replace("[", "_");
+	result = result.replace("]", "_");
+	result = result.replace(";", "_");
+	result = result.replace(",", "_");
+	result = result.replace(".", "_");
+	result = result.replace(" ", "");
+	return result;
     }
 
     public String getId() {
@@ -53,6 +65,37 @@ public abstract class GvComponent {
 	    separator = ", ";
 	}
 	sb.append("]");
+    }
+
+    @Override
+    public int hashCode() {
+	final int prime = 31;
+	int result = 1;
+	result = prime * result + ((attributes == null) ? 0 : attributes.hashCode());
+	result = prime * result + ((id == null) ? 0 : id.hashCode());
+	return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+	if (this == obj)
+	    return true;
+	if (obj == null)
+	    return false;
+	if (getClass() != obj.getClass())
+	    return false;
+	GvComponent other = (GvComponent) obj;
+	if (attributes == null) {
+	    if (other.attributes != null)
+		return false;
+	} else if (!attributes.equals(other.attributes))
+	    return false;
+	if (id == null) {
+	    if (other.id != null)
+		return false;
+	} else if (!id.equals(other.id))
+	    return false;
+	return true;
     }
 
 }
