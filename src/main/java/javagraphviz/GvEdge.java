@@ -1,10 +1,10 @@
 package javagraphviz;
 
-public class Edge extends Component {
+public class GvEdge extends GvComponent {
 
-    private final Graph graph;
-    private final Node startNode;
-    private final Node endNode;
+    private final GvGraph graph;
+    private final GvNode startNode;
+    private final GvNode endNode;
 
     /**
      * Creates an edge between two nodes in the given graph.
@@ -13,7 +13,7 @@ public class Edge extends Component {
      * @param endNode
      * @param graph
      */
-    public Edge(Node startNode, Node endNode, Graph graph) {
+    public GvEdge(GvNode startNode, GvNode endNode, GvGraph graph) {
 	super(startNode.getId() + " -> " + endNode.getId());
 	this.graph = graph;
 	this.startNode = startNode;
@@ -27,19 +27,19 @@ public class Edge extends Component {
      * @param endNode
      * @return the created edge
      */
-    public static Edge connect(Node startNode, Node endNode) {
-	final Graph graph = startNode.getGraph();
+    public static GvEdge connect(GvNode startNode, GvNode endNode) {
+	final GvGraph graph = startNode.getGraph();
 	if (graph != endNode.getGraph()) {
 	    throw new IllegalArgumentException("Nodes must be part of the same graph!");
 	}
-	return new Edge(startNode, endNode, graph);
+	return new GvEdge(startNode, endNode, graph);
     }
 
-    public Node getStartNode() {
+    public GvNode getStartNode() {
 	return startNode;
     }
 
-    public Node getEndNode() {
+    public GvNode getEndNode() {
 	return endNode;
     }
 
@@ -73,7 +73,7 @@ public class Edge extends Component {
 	    return false;
 	if (getClass() != obj.getClass())
 	    return false;
-	Edge other = (Edge) obj;
+	GvEdge other = (GvEdge) obj;
 	if (endNode == null) {
 	    if (other.endNode != null)
 		return false;
@@ -92,7 +92,7 @@ public class Edge extends Component {
 	return true;
     }
 
-    public Graph getGraph() {
+    public GvGraph getGraph() {
 	return graph;
     }
     
@@ -105,19 +105,19 @@ public class Edge extends Component {
      * @param arrowType
      * @return this component
      */
-    public Component setArrowType(String arrowType) {
+    public GvComponent setArrowType(String arrowType) {
 	return setAttribute("arrowtype", arrowType);
     }
 
-    public Component setFixedSize(boolean fixedSize) {
+    public GvComponent setFixedSize(boolean fixedSize) {
 	return setAttribute("fixedsize", Boolean.toString(fixedSize));
     }
 
-    public Component setFontColor(String fontColor) {
+    public GvComponent setFontColor(String fontColor) {
 	return setAttribute("fontcolor", fontColor);
     }
 
-    public Component setLabel(String label) {
+    public GvComponent setLabel(String label) {
 	return setAttribute("label", label);
     }
 
@@ -129,11 +129,11 @@ public class Edge extends Component {
      *            Minimum is 0.0, default is 1.0
      * @return this component
      */
-    public Component setPenwidth(double penwidth) {
+    public GvComponent setPenwidth(double penwidth) {
 	return setAttribute("penwidth", Double.toString(penwidth));
     }
 
-    public Component setShape(String shape) {
+    public GvComponent setShape(String shape) {
 	return setAttribute("shape", shape);
     }
 
@@ -143,7 +143,7 @@ public class Edge extends Component {
      * @param shape
      * @return this component
      */
-    public Component setStyle(String style) {
+    public GvComponent setStyle(String style) {
 	return setAttribute("style", style);
     }
 

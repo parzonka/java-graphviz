@@ -26,7 +26,7 @@ public class GraphvizEngineTest {
     
     @Test
     public void testOutput() {
-	Graph graph = Graph.createDigraph("test");
+	GvGraph graph = GvGraph.createDigraph("test");
 	graph.addEdge(graph.getNode(), graph.getNode());
 	
 	GraphvizEngine ge = new GraphvizEngine();

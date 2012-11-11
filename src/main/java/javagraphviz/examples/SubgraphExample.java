@@ -1,34 +1,34 @@
 package javagraphviz.examples;
 
-import javagraphviz.Graph;
+import javagraphviz.GvGraph;
 import javagraphviz.GraphvizEngine;
-import javagraphviz.Node;
-import javagraphviz.SubGraph;
+import javagraphviz.GvNode;
+import javagraphviz.GvSubGraph;
 
 public class SubgraphExample {
 
     public static void main(String[] args) {
 
-	SubGraph names = new SubGraph("names");
+	GvSubGraph names = new GvSubGraph("names");
 	names.setAttribute("label", "#names");
-	SubGraph animals = new SubGraph("animals");
+	GvSubGraph animals = new GvSubGraph("animals");
 	animals.setAttribute("label", "#animals");
 
 	// define a graph with the Graph Type.
-	Graph graph = Graph.createDigraph("G");
+	GvGraph graph = GvGraph.createDigraph("G");
 	graph.addSubGraph(names);
 	graph.addSubGraph(animals);
 
-	Node hello = names.addNode("hello");
-	Node world = names.addNode("world");
+	GvNode hello = names.addNode("hello");
+	GvNode world = names.addNode("world");
 
-	Node everton = names.addNode("everton");
-	Node cardoso = names.addNode("cardoso");
-	Node montengero = names.addNode("montenegro");
+	GvNode everton = names.addNode("everton");
+	GvNode cardoso = names.addNode("cardoso");
+	GvNode montengero = names.addNode("montenegro");
 
-	Node cat = animals.addNode("cat");
-	Node dog = animals.addNode("dog");
-	Node chicken = animals.addNode("chicken");
+	GvNode cat = animals.addNode("cat");
+	GvNode dog = animals.addNode("dog");
+	GvNode chicken = animals.addNode("chicken");
 
 	names.addEdge(hello, world);
 	names.addEdge(everton, cardoso);

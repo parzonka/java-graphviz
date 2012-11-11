@@ -4,12 +4,12 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
-public abstract class Component {
+public abstract class GvComponent {
 
     private final String id;
     private final Map<String, String> attributes;
 
-    public Component(String id) {
+    public GvComponent(String id) {
 	this.id = id;
 	this.attributes = new HashMap<String, String>();
     }
@@ -29,7 +29,7 @@ public abstract class Component {
      * @param value
      * @return this component (enabling 'fluent' API style)
      */
-    public Component setAttribute(String attribute, String value) {
+    public GvComponent setAttribute(String attribute, String value) {
 	this.attributes.put(attribute, value);
 	return this;
     }

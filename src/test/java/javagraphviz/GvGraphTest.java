@@ -2,10 +2,10 @@ package javagraphviz;
 
 import java.util.Arrays;
 
-import javagraphviz.Edge;
-import javagraphviz.Graph;
-import javagraphviz.Node;
-import javagraphviz.SubGraph;
+import javagraphviz.GvEdge;
+import javagraphviz.GvGraph;
+import javagraphviz.GvNode;
+import javagraphviz.GvSubGraph;
 
 import junit.framework.Assert;
 
@@ -13,33 +13,33 @@ import org.junit.Before;
 import org.junit.Test;
 
 
-public class GraphTest {
+public class GvGraphTest {
 
-    Graph graph;
+    GvGraph graph;
 
     @Before
     public void onSetUp() {
-	graph = Graph.createDigraph("finite_state_machine");
+	graph = GvGraph.createDigraph("finite_state_machine");
     }
 
     @Test
     public void addNode() {
-	Node node = graph.addNode("nodeA");
-	Assert.assertEquals(new Node("nodeA", graph), node);
+	GvNode node = graph.addNode("nodeA");
+	Assert.assertEquals(new GvNode("nodeA", graph), node);
     }
 
     @Test
     public void addEdge() {
-	Node nodeFrom = graph.addNode("nodeFrom");
-	Node nodeTo = graph.addNode("nodeTo");
-	Edge edge = graph.addEdge(nodeFrom, nodeTo);
-	Assert.assertEquals(new Edge(nodeFrom, nodeTo, graph), edge);
+	GvNode nodeFrom = graph.addNode("nodeFrom");
+	GvNode nodeTo = graph.addNode("nodeTo");
+	GvEdge edge = graph.addEdge(nodeFrom, nodeTo);
+	Assert.assertEquals(new GvEdge(nodeFrom, nodeTo, graph), edge);
     }
 
     @Test
     public void multipleNodes() {
-	Node a = graph.addNode("nodeA");
-	Node b = graph.addNode("nodeA");
+	GvNode a = graph.addNode("nodeA");
+	GvNode b = graph.addNode("nodeA");
 	graph.addEdge(a, b);
 
 	StringBuffer xData = new StringBuffer();
@@ -55,8 +55,8 @@ public class GraphTest {
 
     @Test
     public void multipleEdges() {
-	Node a = graph.addNode("nodeA");
-	Node b = graph.addNode("nodeB");
+	GvNode a = graph.addNode("nodeA");
+	GvNode b = graph.addNode("nodeB");
 	graph.addEdge(a, b);
 	graph.addEdge(a, b);
 
@@ -78,15 +78,15 @@ public class GraphTest {
 	graph.setAttribute("bgcolor", "#000");
 	graph.setGlobalNodeAttribute("shape", "doublecircle");
 	graph.getGlobalEdgeAttributes().put("shape", "folder");
-	Node nodeA = graph.addNode("nodeA");
+	GvNode nodeA = graph.addNode("nodeA");
 	nodeA.setAttribute("fillcolor", "#fff");
-	Node nodeB = graph.addNode("nodeB");
+	GvNode nodeB = graph.addNode("nodeB");
 	nodeB.setAttribute("shape", "circle");
-	Edge edge = graph.addEdge(nodeA, nodeB);
+	GvEdge edge = graph.addEdge(nodeA, nodeB);
 	edge.setAttribute("label", "change_label");
-	SubGraph subGraph = new SubGraph("hello_world");
-	Node hello = subGraph.addNode("hello");
-	Node world = subGraph.addNode("world");
+	GvSubGraph subGraph = new GvSubGraph("hello_world");
+	GvNode hello = subGraph.addNode("hello");
+	GvNode world = subGraph.addNode("world");
 	subGraph.addEdge(hello, world);
 	graph.addSubGraph(subGraph);
 
@@ -110,10 +110,10 @@ public class GraphTest {
 
     @Test
     public void testAddSubGraph() {
-	SubGraph subGraph = new SubGraph("G");
+	GvSubGraph subGraph = new GvSubGraph("G");
 	subGraph.setAttribute("label", "hello_world");
-	Node hello = subGraph.addNode("hello");
-	Node world = subGraph.addNode("world");
+	GvNode hello = subGraph.addNode("hello");
+	GvNode world = subGraph.addNode("world");
 	subGraph.addEdge(hello, world);
 
 	graph.addSubGraph(subGraph);
@@ -123,18 +123,18 @@ public class GraphTest {
 
     @Test
     public void testAddTwoSubGraphAndDefineExternalNodesRelationship() {
-	SubGraph subGraphOne = new SubGraph("G");
+	GvSubGraph subGraphOne = new GvSubGraph("G");
 	subGraphOne.setAttribute("label", "hello_world");
-	Node hello = subGraphOne.addNode("hello");
-	Node world = subGraphOne.addNode("world");
+	GvNode hello = subGraphOne.addNode("hello");
+	GvNode world = subGraphOne.addNode("world");
 	subGraphOne.addEdge(hello, world);
-	Graph subGraphTwo = Graph.createDigraph("G");
-	Node cat = subGraphTwo.addNode("cat");
-	Node dog = subGraphTwo.addNode("dog");
+	GvGraph subGraphTwo = GvGraph.createDigraph("G");
+	GvNode cat = subGraphTwo.addNode("cat");
+	GvNode dog = subGraphTwo.addNode("dog");
 	subGraphTwo.addEdge(cat, dog);
 	graph.addSubGraph(subGraphOne);
 
-	Edge edge = graph.addEdge(hello, dog);
+	GvEdge edge = graph.addEdge(hello, dog);
 
 	Assert.assertEquals(subGraphOne, edge.getStartNode().getGraph());
 	Assert.assertEquals(subGraphTwo, edge.getEndNode().getGraph());
@@ -143,18 +143,18 @@ public class GraphTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void testValidateIfExistsNodesWhenDefineExternalNodesRelationship() {
-	SubGraph subGraphOne = new SubGraph("G");
+	GvSubGraph subGraphOne = new GvSubGraph("G");
 	subGraphOne.setAttribute("label", "hello_world");
-	Node hello = subGraphOne.addNode("hello");
-	Node world = subGraphOne.addNode("world");
+	GvNode hello = subGraphOne.addNode("hello");
+	GvNode world = subGraphOne.addNode("world");
 	subGraphOne.addEdge(hello, world);
-	SubGraph subGraphTwo = new SubGraph("G");
-	Node cat = subGraphTwo.addNode("cat");
-	Node dog = subGraphTwo.addNode("dog");
+	GvSubGraph subGraphTwo = new GvSubGraph("G");
+	GvNode cat = subGraphTwo.addNode("cat");
+	GvNode dog = subGraphTwo.addNode("dog");
 	subGraphTwo.addEdge(cat, dog);
 	graph.addSubGraph(subGraphOne);
-	Graph graphOrphan = Graph.createDigraph("G");
-	Node nodeOphan = graphOrphan.addNode("node_orphan");
+	GvGraph graphOrphan = GvGraph.createDigraph("G");
+	GvNode nodeOphan = graphOrphan.addNode("node_orphan");
 
 	graph.addEdge(nodeOphan, dog);
     }

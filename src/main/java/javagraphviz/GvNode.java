@@ -1,17 +1,17 @@
 package javagraphviz;
 
-public class Node extends Component {
+public class GvNode extends GvComponent {
 
-    private Graph graph;
+    private GvGraph graph;
 
     /**
      * create a node with name
      */
-    public Node(String name, Graph graph) {
+    public GvNode(String name, GvGraph graph) {
 	this(name, name, graph);
     }
 
-    public Node(String label, String id, Graph graph) {
+    public GvNode(String label, String id, GvGraph graph) {
 	super(id);
 	this.graph = graph;
 	setAttribute("label", label);
@@ -28,7 +28,7 @@ public class Node extends Component {
 	return (sb.toString());
     }
 
-    public Graph getGraph() {
+    public GvGraph getGraph() {
 	return graph;
     }
 
@@ -48,7 +48,7 @@ public class Node extends Component {
 	    return false;
 	if (getClass() != obj.getClass())
 	    return false;
-	Node other = (Node) obj;
+	GvNode other = (GvNode) obj;
 	if (graph == null) {
 	    if (other.graph != null)
 		return false;
@@ -57,11 +57,11 @@ public class Node extends Component {
 	return true;
     }
 
-    public Component setFixedSize(boolean fixedSize) {
+    public GvComponent setFixedSize(boolean fixedSize) {
 	return setAttribute("fixedsize", Boolean.toString(fixedSize));
     }
 
-    public Component setFontColor(String fontColor) {
+    public GvComponent setFontColor(String fontColor) {
 	return setAttribute("fontcolor", fontColor);
     }
     
@@ -82,11 +82,11 @@ public class Node extends Component {
      *            Minimum is 0.02, default is 0.5
      * @return this component
      */
-    public Component setHeight(double height) {
+    public GvComponent setHeight(double height) {
 	return setAttribute("height", Double.toString(height));
     }
 
-    public Component setLabel(String label) {
+    public GvComponent setLabel(String label) {
 	return setAttribute("label", label);
     }
 
@@ -98,7 +98,7 @@ public class Node extends Component {
      *            Minimum is 0.0, default is 1.0
      * @return this component
      */
-    public Component setPenwidth(double penwidth) {
+    public GvComponent setPenwidth(double penwidth) {
 	return setAttribute("penwidth", Double.toString(penwidth));
     }
 
@@ -108,11 +108,11 @@ public class Node extends Component {
      * @param shape
      * @return this component
      */
-    public Component setStyle(String style) {
+    public GvComponent setStyle(String style) {
 	return setAttribute("style", style);
     }
 
-    public Component setShape(String shape) {
+    public GvComponent setShape(String shape) {
 	return setAttribute("shape", shape);
     }
 
@@ -131,7 +131,7 @@ public class Node extends Component {
      *            Minimum is 0.01, default is 0.75
      * @return this component
      */
-    public Component setWidth(double width) {
+    public GvComponent setWidth(double width) {
 	return setAttribute("width", Double.toString(width));
     }
 

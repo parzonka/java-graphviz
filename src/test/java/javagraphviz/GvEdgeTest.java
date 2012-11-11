@@ -1,23 +1,23 @@
 package javagraphviz;
 
-import static javagraphviz.Edge.connect;
+import static javagraphviz.GvEdge.connect;
 import static org.junit.Assert.assertEquals;
-import javagraphviz.Edge;
-import javagraphviz.Graph;
-import javagraphviz.Node;
+import javagraphviz.GvEdge;
+import javagraphviz.GvGraph;
+import javagraphviz.GvNode;
 
 import org.junit.Before;
 import org.junit.Test;
 
 
-public class EdgeTest {
+public class GvEdgeTest {
 
-    Edge edge;
+    GvEdge edge;
 
     @Before
     public void onSetUp() {
-	Graph graph = Graph.createDigraph("test");
-	edge = new Edge(new Node("nodeA", graph), new Node("nodeB", graph), graph);
+	GvGraph graph = GvGraph.createDigraph("test");
+	edge = new GvEdge(new GvNode("nodeA", graph), new GvNode("nodeB", graph), graph);
     }
 
     @Test
@@ -33,9 +33,9 @@ public class EdgeTest {
     }
 
     public void staticConnect() {
-	Graph graph = Graph.createDigraph("test");
-	Node a = graph.getNode();
-	Node b = graph.getNode();
+	GvGraph graph = GvGraph.createDigraph("test");
+	GvNode a = graph.getNode();
+	GvNode b = graph.getNode();
 	edge = connect(a, b);
 
 	assertEquals(a, edge.getStartNode());

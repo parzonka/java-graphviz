@@ -6,25 +6,25 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Graph extends Component {
+public class GvGraph extends GvComponent {
 
     private final String graphType;
     private int idCount;
     private Map<String, String> globalNodeAttributes;
     private Map<String, String> edgeAttributes;
-    private Map<String, Node> nodes;
-    private List<Edge> edges;
-    private List<SubGraph> subGraphs;
+    private Map<String, GvNode> nodes;
+    private List<GvEdge> edges;
+    private List<GvSubGraph> subGraphs;
     private boolean prefIdEqualsLabel;
 
-    protected Graph(String graphType, String name) {
+    protected GvGraph(String graphType, String name) {
 	super(name);
 	this.graphType = graphType;
 	this.globalNodeAttributes = new HashMap<String, String>();
 	this.edgeAttributes = new HashMap<String, String>();
-	this.nodes = new HashMap<String, Node>();
-	this.edges = new ArrayList<Edge>();
-	this.subGraphs = new ArrayList<SubGraph>();
+	this.nodes = new HashMap<String, GvNode>();
+	this.edges = new ArrayList<GvEdge>();
+	this.subGraphs = new ArrayList<GvSubGraph>();
     }
     
     /**
@@ -32,17 +32,17 @@ public class Graph extends Component {
      * @param name
      * @return the digraph
      */
-    public static Graph createDigraph(String name) {
-	return new Graph("digraph", name);
+    public static GvGraph createDigraph(String name) {
+	return new GvGraph("digraph", name);
     }
 
     public Map<String, String> getGlobalNodeAttributes() {
 	return this.globalNodeAttributes;
     }
 
-    public Node addNode(String name) {
+    public GvNode addNode(String name) {
 	String id = nodes.containsKey(name) ? name + idCount++ : name;
-	Node node = new Node(name, id, this);
+	GvNode node = new GvNode(name, id, this);
 	nodes.put(id, node);
 	return node;
     }
@@ -53,10 +53,10 @@ public class Graph extends Component {
      * @param id
      * @return a node
      */
-    public Node getNode(String id) {
-	Node node = nodes.get(id);
+    public GvNode getNode(String id) {
+	GvNode node = nodes.get(id);
 	if (node == null) {
-	    node = new Node(id, this);
+	    node = new GvNode(id, this);
 	    nodes.put(id, node);
 	}
 	if (prefIdEqualsLabel) {
@@ -70,7 +70,7 @@ public class Graph extends Component {
      * 
      * @return a node
      */
-    public Node getNode() {
+    public GvNode getNode() {
 	String id;
 	do {
 	    id = "node" + idCount++;
@@ -78,18 +78,18 @@ public class Graph extends Component {
 	return getNode(id);
     }
 
-    public Edge addEdge(Node nodeFrom, Node nodeTo) {
+    public GvEdge addEdge(GvNode nodeFrom, GvNode nodeTo) {
 	if (!containsNode(nodeFrom) || !containsNode(nodeFrom))
 	    throw new IllegalArgumentException("nodes not found");
-	Edge edge = new Edge(nodeFrom, nodeTo, this);
+	GvEdge edge = new GvEdge(nodeFrom, nodeTo, this);
 	edges.add(edge);
 	return edge;
     }
 
-    public boolean containsNode(Node node) {
+    public boolean containsNode(GvNode node) {
 	boolean contains = this.getNodes().contains(node);
 	if (!contains)
-	    for (Graph graph : subGraphs) {
+	    for (GvGraph graph : subGraphs) {
 		contains = graph.containsNode(node);
 		if (contains)
 		    break;
@@ -117,15 +117,15 @@ public class Graph extends Component {
 	this.globalNodeAttributes.put(attribute, value);
     }
 
-    public List<Edge> getEdges() {
+    public List<GvEdge> getEdges() {
 	return Collections.unmodifiableList(this.edges);
     }
 
-    public List<Node> getNodes() {
-	return Collections.unmodifiableList(new ArrayList<Node>(this.nodes.values()));
+    public List<GvNode> getNodes() {
+	return Collections.unmodifiableList(new ArrayList<GvNode>(this.nodes.values()));
     }
 
-    public List<SubGraph> subGraphs() {
+    public List<GvSubGraph> subGraphs() {
 	return this.subGraphs;
     }
 
@@ -153,13 +153,13 @@ public class Graph extends Component {
 	    appendAttributes(sb, getGlobalEdgeAttributes());
 	    sb.append(";");
 	}
-	for (SubGraph subGraph : subGraphs) {
+	for (GvSubGraph subGraph : subGraphs) {
 	    sb.append(" ").append(subGraph.getDescription());
 	}
-	for (Component component : this.getNodes()) {
+	for (GvComponent component : this.getNodes()) {
 	    sb.append(" ").append(component.getDescription());
 	}
-	for (Component component : this.getEdges()) {
+	for (GvComponent component : this.getEdges()) {
 	    sb.append(" ").append(component.getDescription());
 	}
 	sb.append("}");
@@ -168,7 +168,7 @@ public class Graph extends Component {
 
     }
 
-    public void addSubGraph(SubGraph graph) {
+    public void addSubGraph(GvSubGraph graph) {
 	this.subGraphs.add(graph);
     }
 

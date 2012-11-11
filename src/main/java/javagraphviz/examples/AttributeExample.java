@@ -1,25 +1,25 @@
 package javagraphviz.examples;
 
-import javagraphviz.Edge;
-import javagraphviz.Graph;
+import javagraphviz.GvEdge;
+import javagraphviz.GvGraph;
 import javagraphviz.GraphvizEngine;
-import javagraphviz.Node;
+import javagraphviz.GvNode;
 
 public class AttributeExample {
 
     public static void main(String[] args) {
 
 	// define a graph with the Graph Type.
-	Graph graph = Graph.createDigraph("G");
+	GvGraph graph = GvGraph.createDigraph("G");
 	graph.setAttribute("rankdir", "LR");
 	graph.setGlobalNodeAttribute("shape", "record");
 	// create nodes with names
-	Node hello = graph.getNode();
+	GvNode hello = graph.getNode();
 	hello.setFixedSize(true);
 	hello.setHeight(0.8);
 	hello.setWidth(0.6);
 	hello.setLabel("foo");
-	Edge edge = graph.addEdge(hello, hello);
+	GvEdge edge = graph.addEdge(hello, hello);
 	edge.setAttribute("taillabel", "Mp1x123");
 	edge.setAttribute("fontsize", "7");
 	edge.setAttribute("arrowtail", "none");

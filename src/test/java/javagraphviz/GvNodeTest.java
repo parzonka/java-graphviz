@@ -1,20 +1,20 @@
 package javagraphviz;
 
 import static org.junit.Assert.assertEquals;
-import javagraphviz.Graph;
-import javagraphviz.Node;
+import javagraphviz.GvGraph;
+import javagraphviz.GvNode;
 
 import org.junit.Before;
 import org.junit.Test;
 
 
-public class NodeTest {
+public class GvNodeTest {
 
-    Node node;
+    GvNode node;
 
     @Before
     public void onSetUp() {
-	node = new Node("nodeTest", Graph.createDigraph("GraphTest"));
+	node = new GvNode("nodeTest", GvGraph.createDigraph("GraphTest"));
     }
 
     @Test

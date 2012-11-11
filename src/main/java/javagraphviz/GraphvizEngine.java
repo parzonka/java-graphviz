@@ -25,7 +25,7 @@ public class GraphvizEngine {
      * 
      * @param graph
      */
-    public void process(Graph graph) {
+    public void process(GvGraph graph) {
 
 	final String graphDescription = graph.getDescription();
 
