@@ -10,7 +10,7 @@ public class HelloWorldSample {
     public static void main(String[] args) {
 
 	// define a graph with the Graph Type.
-	Graph graph = new Graph("G");
+	Graph graph = Graph.createDigraph("G");
 	graph.setAttribute("rankdir", "LR");
 	graph.setGlobalNodeAttribute("shape", "record");
 	// create nodes with names

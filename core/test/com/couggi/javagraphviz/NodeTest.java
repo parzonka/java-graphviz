@@ -11,7 +11,7 @@ public class NodeTest {
 
     @Before
     public void onSetUp() {
-	node = new Node("nodeTest", new Graph("GraphTest"));
+	node = new Node("nodeTest", Graph.createDigraph("GraphTest"));
     }
 
     @Test

@@ -15,7 +15,7 @@ public class UsingLayers {
 	animals.setAttribute("label", "#animals");
 
 	// define a graph with the Graph Type.
-	Graph graph = new Graph("G");
+	Graph graph = Graph.createDigraph("G");
 	graph.addSubGraph(names);
 	graph.addSubGraph(animals);
 

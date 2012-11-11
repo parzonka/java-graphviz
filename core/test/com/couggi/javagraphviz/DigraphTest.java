@@ -13,7 +13,7 @@ public class DigraphTest {
 
     @Before
     public void onSetUp() {
-	graph = new Graph("finite_state_machine");
+	graph = Graph.createDigraph("finite_state_machine");
     }
 
     @Test
@@ -122,7 +122,7 @@ public class DigraphTest {
 	Node hello = subGraphOne.addNode("hello");
 	Node world = subGraphOne.addNode("world");
 	subGraphOne.addEdge(hello, world);
-	Graph subGraphTwo = new Graph("G");
+	Graph subGraphTwo = Graph.createDigraph("G");
 	Node cat = subGraphTwo.addNode("cat");
 	Node dog = subGraphTwo.addNode("dog");
 	subGraphTwo.addEdge(cat, dog);
@@ -147,7 +147,7 @@ public class DigraphTest {
 	Node dog = subGraphTwo.addNode("dog");
 	subGraphTwo.addEdge(cat, dog);
 	graph.addSubGraph(subGraphOne);
-	Graph graphOrphan = new Graph("G");
+	Graph graphOrphan = Graph.createDigraph("G");
 	Node nodeOphan = graphOrphan.addNode("node_orphan");
 
 	graph.addEdge(nodeOphan, dog);

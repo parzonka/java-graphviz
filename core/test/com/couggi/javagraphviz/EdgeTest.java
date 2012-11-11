@@ -12,7 +12,7 @@ public class EdgeTest {
 
     @Before
     public void onSetUp() {
-	Graph graph = new Graph("test");
+	Graph graph = Graph.createDigraph("test");
 	edge = new Edge(new Node("nodeA", graph), new Node("nodeB", graph), graph);
     }
 
@@ -29,7 +29,7 @@ public class EdgeTest {
     }
 
     public void staticConnect() {
-	Graph graph = new Graph("test");
+	Graph graph = Graph.createDigraph("test");
 	Node a = graph.getNode();
 	Node b = graph.getNode();
 	edge = connect(a, b);

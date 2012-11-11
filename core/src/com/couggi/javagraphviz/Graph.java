@@ -8,6 +8,7 @@ import java.util.Map;
 
 public class Graph extends Component {
 
+    private final String graphType;
     private int idCount;
     private Map<String, String> globalNodeAttributes;
     private Map<String, String> edgeAttributes;
@@ -16,13 +17,23 @@ public class Graph extends Component {
     private List<SubGraph> subGraphs;
     private boolean prefIdEqualsLabel;
 
-    public Graph(String name) {
+    protected Graph(String graphType, String name) {
 	super(name);
+	this.graphType = graphType;
 	this.globalNodeAttributes = new HashMap<String, String>();
 	this.edgeAttributes = new HashMap<String, String>();
 	this.nodes = new HashMap<String, Node>();
 	this.edges = new ArrayList<Edge>();
 	this.subGraphs = new ArrayList<SubGraph>();
+    }
+    
+    /**
+     * Creates a new directed graph with the given name.
+     * @param name
+     * @return the digraph
+     */
+    public static Graph createDigraph(String name) {
+	return new Graph("digraph", name);
     }
 
     public Map<String, String> getGlobalNodeAttributes() {
@@ -119,7 +130,7 @@ public class Graph extends Component {
     }
 
     public String getType() {
-	return "digraph";
+	return graphType;
     }
 
     public String output() {

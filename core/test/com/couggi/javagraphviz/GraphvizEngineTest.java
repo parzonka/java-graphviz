@@ -16,7 +16,7 @@ public class GraphvizEngineTest {
 
     @Before
     public void onSetUp() {
-	graph = new Graph("test");
+	graph = Graph.createDigraph("test");
 	this.engine = new GraphvizEngine(graph);
     }
 
