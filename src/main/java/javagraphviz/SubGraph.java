@@ -1,4 +1,4 @@
-package com.couggi.javagraphviz;
+package javagraphviz;
 
 public class SubGraph extends Graph {
 

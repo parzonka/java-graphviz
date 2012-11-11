@@ -1,4 +1,4 @@
-package com.couggi.javagraphviz;
+package javagraphviz;
 
 
 public class Node extends Component {

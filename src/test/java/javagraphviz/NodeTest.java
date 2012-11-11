@@ -1,9 +1,12 @@
-package com.couggi.javagraphviz;
+package javagraphviz;
 
 import static org.junit.Assert.assertEquals;
+import javagraphviz.Graph;
+import javagraphviz.Node;
 
 import org.junit.Before;
 import org.junit.Test;
+
 
 public class NodeTest {
 

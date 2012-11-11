@@ -1,13 +1,17 @@
-package com.couggi.javagraphviz;
+package javagraphviz;
 
 import static org.junit.Assert.assertEquals;
 
 import java.io.File;
 
+import javagraphviz.Graph;
+import javagraphviz.GraphvizEngine;
+
 import junit.framework.Assert;
 
 import org.junit.Before;
 import org.junit.Test;
+
 
 public class GraphvizEngineTest {
 

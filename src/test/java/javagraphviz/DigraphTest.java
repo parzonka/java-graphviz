@@ -1,11 +1,17 @@
-package com.couggi.javagraphviz;
+package javagraphviz;
 
 import java.util.Arrays;
+
+import javagraphviz.Edge;
+import javagraphviz.Graph;
+import javagraphviz.Node;
+import javagraphviz.SubGraph;
 
 import junit.framework.Assert;
 
 import org.junit.Before;
 import org.junit.Test;
+
 
 public class DigraphTest {
 

@@ -1,4 +1,4 @@
-package com.couggi.javagraphviz;
+package javagraphviz;
 
 import java.util.HashMap;
 import java.util.Map;

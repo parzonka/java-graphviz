@@ -1,4 +1,4 @@
-package com.couggi.javagraphviz;
+package javagraphviz;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -9,12 +9,8 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class GraphvizEngine {
-
-    private static final Logger log = Logger.getLogger("net.javagraphviz.GraphvizEngine");
 
     private Map<String, OutputType> type;
     private Graph graph;
@@ -61,16 +57,10 @@ public class GraphvizEngine {
 
 	} catch (IOException e) {
 
-	    if (log.isLoggable(Level.SEVERE)) {
-		log.log(Level.SEVERE, "command error", e);
-	    }
 	    throw new GraphvizOutputException(e.getMessage(), e);
 
 	} catch (InterruptedException e) {
 
-	    if (log.isLoggable(Level.SEVERE)) {
-		log.log(Level.SEVERE, "command error", e);
-	    }
 	    throw new GraphvizOutputException(e.getMessage(), e);
 	}
 

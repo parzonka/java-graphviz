@@ -1,9 +1,9 @@
-package helloworld;
+package javagraphviz.examples;
 
-import com.couggi.javagraphviz.Graph;
-import com.couggi.javagraphviz.GraphvizEngine;
-import com.couggi.javagraphviz.Node;
-import com.couggi.javagraphviz.SubGraph;
+import javagraphviz.Graph;
+import javagraphviz.GraphvizEngine;
+import javagraphviz.Node;
+import javagraphviz.SubGraph;
 
 public class UsingLayers {
 

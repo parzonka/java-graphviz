@@ -1,10 +1,14 @@
-package com.couggi.javagraphviz;
+package javagraphviz;
 
-import static com.couggi.javagraphviz.Edge.connect;
+import static javagraphviz.Edge.connect;
 import static org.junit.Assert.assertEquals;
+import javagraphviz.Edge;
+import javagraphviz.Graph;
+import javagraphviz.Node;
 
 import org.junit.Before;
 import org.junit.Test;
+
 
 public class EdgeTest {
 

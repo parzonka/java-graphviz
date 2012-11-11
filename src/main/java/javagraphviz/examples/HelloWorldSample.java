@@ -1,9 +1,9 @@
-package helloworld;
+package javagraphviz.examples;
 
-import com.couggi.javagraphviz.Graph;
-import com.couggi.javagraphviz.Edge;
-import com.couggi.javagraphviz.GraphvizEngine;
-import com.couggi.javagraphviz.Node;
+import javagraphviz.Edge;
+import javagraphviz.Graph;
+import javagraphviz.GraphvizEngine;
+import javagraphviz.Node;
 
 public class HelloWorldSample {
 
