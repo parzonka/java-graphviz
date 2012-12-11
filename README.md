@@ -18,7 +18,7 @@ Repository:
 	<repositories>
 		<repository>
 			<id>parzonka.github.com-snapshots</id>
-			<url>http://parzonka.github.com/mvn-repo/snapshots</url>
+			<url>http://parzonka.github.com/m2/snapshots</url>
 		</repository>
 	</repositories>
 
