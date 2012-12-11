@@ -36,8 +36,8 @@
 
 	<distributionManagement>
 		<repository>
-			<id>local.repo</id>
-			<url>${local.repo.url}</url>
+			<id>repo</id>
+			<url>${repo.url}</url>
 		</repository>
 	</distributionManagement>
 
